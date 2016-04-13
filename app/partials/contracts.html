@@ -1,0 +1,25 @@
+<h1>Contracten</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="contractCtrl.createNewContract()">Contract aanmaken</a>
+</p>
+
+<p>Onderstaande contracten zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Bediende</th>
+        <th>Business unit</th>
+        <th>Begindatum</th>
+        <th>Einddatum</th>
+        <th>Acties</th>
+    </tr>
+    <tr ng-repeat="contract in contractCtrl.contracts">
+        <td>{{contract.bediendeId}}</td>
+        <td>{{contract.businessUnitId}}</td>
+        <td>{{contract.startDatum}}</td>
+        <td>{{contract.eindDatum}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="contractCtrl.deleteContract(contract.id)"></span>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h3 class="modal-title">Nieuwe business unit aanmaken</h3>
+</div>
+<div class="modal-body">
+
+
+    <form>
+        <div class="form-group">
+            <label for="business-unit-name">Naam</label>
+            <input type="text" class="form-control" id="business-unit-name" ng-model="cbuCtrl.businessUnit.naam" placeholder="Naam">
+        </div>
+    </form>
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="cbuCtrl.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cbuCtrl.cancel()">Cancel</button>
+</div>

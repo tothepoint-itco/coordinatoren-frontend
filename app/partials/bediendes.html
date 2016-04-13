@@ -1,0 +1,23 @@
+<h1>Bedienden</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="bediendeCtrl.createNewBediende()">Bediende aanmaken</a>
+</p>
+
+<p>Onderstaande bedienden zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Voornaam</th>
+        <th>Familienaam</th>
+        <th>Geboortedatum</th>
+        <th>Acties</th>
+    </tr>
+    <tr ng-repeat="bed in bediendeCtrl.bediendes">
+        <td>{{bed.voorNaam}}</td>
+        <td>{{bed.familieNaam}}</td>
+        <td>{{bed.geboorteDatum}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="bediendeCtrl.deleteBediende(bed.id)"></span>
+        </td>
+    </tr>
+</table>

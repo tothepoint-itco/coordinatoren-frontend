@@ -1,0 +1,19 @@
+<h1>Business units</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="businessCtrl.createNewBusinessUnit()">Nieuwe business unit aanmaken</a>
+</p>
+
+<p>Onderstaande business-units zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Naam</th>
+        <th>Acties</th>
+    </tr>
+    <tr ng-repeat="bu in businessCtrl.businessUnits">
+        <td><a href="#/business-units/{{bu.id}}">{{bu.naam}}</a></td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="businessCtrl.deleteBusinessUnit(bu.id)"></span>
+        </td>
+    </tr>
+</table>
