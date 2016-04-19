@@ -13,7 +13,7 @@
         <th>Acties</th>
     </tr>
     <tr ng-repeat="bed in bediendeCtrl.bediendes">
-        <td>{{bed.voorNaam}}</td>
+        <td><a href="#/bediendes/{{bed.id}}">{{bed.voorNaam}}</a></td>
         <td>{{bed.familieNaam}}</td>
         <td>{{bed.geboorteDatum}}</td>
         <td>
