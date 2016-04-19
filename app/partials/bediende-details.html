@@ -1,0 +1,31 @@
+<h1>Bediende</h1>
+
+<table class="table table-hover">
+    <tr>
+        <th>Voornaam</th>
+        <th>Familienaam</th>
+        <th>Geboortedatum</th>
+    </tr>
+    <tr>
+        <td>{{bediendeDetailsCtrl.bediende.voorNaam}}</td>
+        <td>{{bediendeDetailsCtrl.bediende.familieNaam}}</td>
+        <td>{{bediendeDetailsCtrl.bediende.geboorteDatum}}</td>
+    </tr>
+</table>
+
+<p>{{bediendeDetailsCtrl.bediende.voorNaam}} zit op volgende opdrachten:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Klant</th>
+        <th>Locatie</th>
+        <th>Informele start</th>
+        <th>Informeel einde</th>
+    </tr>
+    <tr ng-repeat="akkoordAggr in bediendeDetailsCtrl.aggregatedConsultant.akkoorden">
+        <td>{{akkoordAggr.opdracht.klant}}</td>
+        <td>{{akkoordAggr.opdracht.locatie}}</td>
+        <td>{{akkoordAggr.akkoord.informeelStartDatum}}</td>
+        <td>{{akkoordAggr.akkoord.informeelEindDatum}}</td>
+    </tr>
+</table>

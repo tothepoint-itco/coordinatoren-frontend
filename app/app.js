@@ -23,6 +23,11 @@ coordinatorentool.config(['$routeProvider', function($routeProvider) {
         controller: "BusinessUnitController",
         controllerAs: "businessCtrl"
     })
+    .when('/bediendes/:bediendeId', {
+        templateUrl: "partials/bediende-details.html",
+        controller: "BediendeDetailsController",
+        controllerAs: "bediendeDetailsCtrl"
+    })
     .when('/bediendes', {
         templateUrl: "partials/bediendes.html",
         controller: "BediendeController",
