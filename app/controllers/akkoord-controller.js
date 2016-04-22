@@ -2,7 +2,7 @@
 
 
 angular.module('coordinatorentoolControllers').controller("AkkoordController",
-["AkkoordResource", "ConsultantAggregatedResource", "OpdrachtResource", "$uibModal",
+["AkkoordResource", "ConsultantResource", "OpdrachtResource", "$uibModal",
 function(Akkoord, Consultant, Opdracht, $uibModal) {
     Akkoord.query(
         (success) => {
