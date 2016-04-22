@@ -1,0 +1,26 @@
+<h1>Akkoorden</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="akkoordCtrl.createNewAkkoord()">Akkoord aanmaken</a>
+</p>
+
+<p>Onderstaande akkoorden zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Project code</th>
+        <th>Opdracht id</th>
+        <th>Consultant id</th>
+        <th>Start datum</th>
+        <th>Eind datum</th>
+    </tr>
+    <tr ng-repeat="akkoord in akkoordCtrl.akkoorden">
+        <td><a href="#/bestellakkoordnen/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
+        <td>{{akkoord.opdrachtId}}</td>
+        <td>{{akkoord.consultantId}}</td>
+        <td>{{akkoord.informeelStartDatum}}</td>
+        <td>{{akkoord.informeelEindDatum}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="akkoordCtrl.deleteAkkoord(akkoord.id)"></span>
+        </td>
+    </tr>
+</table>

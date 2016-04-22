@@ -1,0 +1,31 @@
+<h1>Opdrachten</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="opdrachtCtrl.createNewOpdracht()">Opdracht aanmaken</a>
+</p>
+
+<p>Onderstaande opdrachten zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Locatie</th>
+        <th>Tarief</th>
+        <th>Account manager</th>
+        <th>Start datum</th>
+        <th>Deadline</th>
+        <th>klant</th>
+        <th>info</th>
+
+    </tr>
+    <tr ng-repeat="opdracht in opdrachtCtrl.opdrachten">
+        <td>{{opdracht.locatie}}</td>
+        <td>{{opdracht.tarief}}</td>
+        <td>{{opdracht.accountManager}}</td>
+        <td>{{opdracht.startDatum}}</td>
+        <td>{{opdracht.deadline}}</td>
+        <td>{{opdracht.klant}}</td>
+        <td>{{opdracht.info}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="opdrachtCtrl.deleteOpdracht(opdracht.id)"></span>
+        </td>
+    </tr>
+</table>
