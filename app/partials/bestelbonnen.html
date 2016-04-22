@@ -1,0 +1,22 @@
+<h1>Bestelbonnen</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="bestelbonCtrl.createNewBestelbon()">Bestelbon aanmaken</a>
+</p>
+
+<p>Onderstaande bedienden zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Project code</th>
+        <th>Start datum</th>
+        <th>Eind datum</th>
+    </tr>
+    <tr ng-repeat="bon in bestelbonCtrl.bestelbonnen">
+        <td><a href="#/bestellbonnen/{{bon.id}}">{{bon.projectCode}}</a></td>
+        <td>{{bon.startDatum}}</td>
+        <td>{{bon.eindDatum}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="bestelbonCtrl.deleteBestelBon(bon.id)"></span>
+        </td>
+    </tr>
+</table>

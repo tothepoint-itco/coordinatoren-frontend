@@ -1,0 +1,49 @@
+<div class="modal-header">
+    <h3 class="modal-title">Nieuwe akkoord aanmaken</h3>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="akkoord-projectcode">Project code</label>
+            <input type="text" class="form-control" id="akkoord-projectcode" ng-model="cakkCtrl.akkoord.projectCode" placeholder="Project code">
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <button id="akkoord-opdracht" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    {{cakkCtrl.selectedOpdrachtLabel || "Kies een opdracht"}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="akkoord-opdracht">
+                    <li role="menuitem" ng-repeat="opdracht in cakkCtrl.opdrachten"><a ng-click="cakkCtrl.selectOpdracht(opdracht)" href="">{{opdracht.Locatie}}{{opdracht.klant}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group" uib-dropdown is-open="status.isopen2">
+                <button id="akkoord-consultant" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    {{cakkCtrl.selectedConsultantLabel || "Kies consultant"}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="akkoord-consultant">
+                    <li role="menuitem" ng-repeat="consultant in cakkCtrl.consultants"><a ng-click="cakkCtrl.selectConsultant(consultant)" href="">{{consultant.voorNaam}}{{consultant.familieNaam}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="akkoord-startdatum">Begindatum (yyyy-mm-dd)</label>
+            <input type="text" class="form-control" id="akkoord-informeelstartdatum" ng-model="cakkCtrl.akkoord.informeelStartDatum" placeholder="Begin datum">
+        </div>
+
+        <div class="form-group">
+            <label for="akkoord-einddatum">Einddatum (yyyy-mm-dd)</label>
+            <input type="text" class="form-control" id="akkoord-informeeleinddatum" ng-model="cakkCtrl.akkoord.informeelEindDatum" placeholder="Eind datum">
+        </div>
+    </form>
+</div
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="cakkCtrl.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cakkCtrl.cancel()">Cancel</button>
+</div>
