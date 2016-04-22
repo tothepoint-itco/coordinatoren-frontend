@@ -1,7 +1,7 @@
 'use strict',
 
-angular.module('coordinatorentool').controller('OpdrachtController', ["OpdrachtResource","AkkoordResource","OpdrachtResource","ConsultantAggregatedResource", "$uibModal",
-function(Opdracht,AkkoordResource, Opdracht, Consultant, $uibModal) {
+angular.module('coordinatorentool').controller('OpdrachtController', ["OpdrachtResource", "$uibModal",
+function(Opdracht, $uibModal) {
 Opdracht.query(
   (success) => {
     this.opdrachten = success;

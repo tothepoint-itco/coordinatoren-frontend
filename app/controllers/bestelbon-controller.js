@@ -1,7 +1,7 @@
 'use strict',
 
-angular.module('coordinatorentool').controller('BestelbonController', ["BestelbonResource","AkkoordResource","OpdrachtResource","ConsultantAggregatedResource", "$uibModal",
-function(Bestelbon,AkkoordResource, Opdracht, Consultant, $uibModal) {
+angular.module('coordinatorentool').controller('BestelbonController', ["BestelbonResource", "$uibModal",
+function(Bestelbon, $uibModal) {
 Bestelbon.query(
   (success) => {
     this.bestelbonnen = success;
