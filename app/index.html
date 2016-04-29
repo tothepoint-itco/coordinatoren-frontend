@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/vis/dist/vis.min.css">
-
-
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="bower_components/vis/dist/vis.min.css">
+    <script src="bower_components/vis/dist/vis.js"></script>
+
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 
     <style>
@@ -37,17 +37,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Coordinatorentool</a>
+                <a class="navbar-brand" href="#/planning">Coordinatorentool</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#/planning">Home</a></li> <!-- class="active"-->
                     <li><a href="#/business-units">Business Units</a></li>
                     <li><a href="#/bediendes">Bedienden</a></li>
                     <li><a href="#/contracts">Contracten</a></li>
                     <li><a href="#/opdrachten">Opdrachten</a></li>
                     <li><a href="#/bestelbonnen">Bestelbonnen</a></li>
                     <li><a href="#/akkoorden">Akkoorden</a></li>
+                    <li><a href="#/beheerders">Beheerder</a></li>
+                    <li><a href="#/rollen">Rollen</a></li>
                 </ul>
             </div>
         </div>
@@ -95,9 +97,20 @@
 <script src="models/opdracht.js"></script>
 <script src="models/consultant.js"></script>
 
+<script src="controllers/planning-controller.js"></script>
 <script src="controllers/akkoord-controller.js"></script>
 <script src="controllers/modals/create-akkoord-controller.js"></script>
 <script src="models/akkoord.js"></script>
+
+<script src="controllers/beheerder-controller.js"></script>
+<script src="controllers/modals/create-beheerder-controller.js"></script>
+<script src="models/beheerder.js"></script>
+
+
+<script src="controllers/modals/create-rol-controller.js"></script>
+<script src="controllers/rol-controller.js"></script>
+<script src="models/rol.js"></script>
+<script src="controllers/login-controller.js"></script>
 
 <script src="controllers/modals/confirm-modal-controller.js"></script>
 

@@ -34,10 +34,25 @@ coordinatorentool.config(['$routeProvider', function($routeProvider) {
         controller: "BusinessUnitController",
         controllerAs: "businessCtrl"
     })
+    .when('/planning', {
+        templateUrl: "partials/planning.html",
+        controller: "PlanningController",
+        controllerAs: "planningCtrl"
+    })
     .when('/bestelbonnen', {
         templateUrl: "partials/bestelbonnen.html",
         controller: "BestelbonController",
         controllerAs: "bestelbonCtrl"
+    })
+    .when('/rollen', {
+        templateUrl: "partials/rollen.html",
+        controller: "RolController",
+        controllerAs: "rolCtrl"
+    })
+    .when('/login', {
+        templateUrl: "partials/login.html",
+        controller: "LoginController",
+        controllerAs: "loginCtrl"
     })
     .when('/opdrachten', {
         templateUrl: "partials/opdrachten.html",
@@ -48,6 +63,11 @@ coordinatorentool.config(['$routeProvider', function($routeProvider) {
         templateUrl: "partials/akkoorden.html",
         controller: "AkkoordController",
         controllerAs: "akkoordCtrl"
+    })
+    .when('/beheerders', {
+        templateUrl: "partials/beheerders.html",
+        controller: "BeheerderController",
+        controllerAs: "beheerderCtrl"
     })
 
     .when('/bediendes/:bediendeId', {

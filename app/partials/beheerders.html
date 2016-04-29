@@ -1,0 +1,25 @@
+<h1>Beheerders</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="beheerderCtrl.createNewBeheerder()">Beheerder aanmaken</a>
+</p>
+
+<p>Onderstaande beheerders zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Naam</th>
+        <th>Familie Naam</th>
+        <th>Email</th>
+        <th>Passwoord</th>
+    </tr>
+    <tr ng-repeat="beheerder in beheerderCtrl.beheerders">
+      <!--  <td><a href="#/beheerders/{{beheerder.id}}">{{beheerder.id}}</a></td> -->
+        <td>{{beheerder.voorNaam}}</td>
+        <td>{{beheerder.familieNaam}}</td>
+        <td>{{beheerder.email}}</td>
+        <td>{{beheerder.passwoord}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="beheerderCtrl.deleteBeheerder(beheerder.id)"></span>
+        </td>
+    </tr>
+</table>
