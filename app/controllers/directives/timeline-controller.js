@@ -30,7 +30,7 @@ function($rootScope) {
                 start: akkoordAggregated.akkoord.informeelStartDatum,
                 end: akkoordAggregated.akkoord.informeelEindDatum,
                 style: "background-color: #d5ddf7",
-                title: "Loopt informeel van: \n" + akkoordAggregated.akkoord.informeelStartDatum + " tot " + akkoordAggregated.akkoord.informeelEindDatum
+                title: "Loopt informeel van: \n" + moment(akkoordAggregated.akkoord.informeelStartDatum).format("D MMM") + " tot " + moment(akkoordAggregated.akkoord.informeelEindDatum).format("D MMM")
             });
 
             akkoordAggregated.bestelbonnen.map((bestelbon) => {
@@ -40,7 +40,7 @@ function($rootScope) {
                     start: bestelbon.startDatum,
                     end: bestelbon.eindDatum,
                     style: "background-color: #20bd00",
-                    title: "Bestelbon loopt van: \n" + bestelbon.startDatum + " tot " + bestelbon.eindDatum
+                    title: "Bestelbon loopt van: \n" + moment(bestelbon.startDatum).format("D MMM") + " tot " + moment(bestelbon.eindDatum).format("D MMM")
                 };
                 dataSetArray.push(entry);
             })
@@ -53,7 +53,8 @@ function($rootScope) {
 
         var options = {
             stack: false,
-            selectable: false
+            selectable: false,
+            locale: 'nl'
         };
 
         var timeline = new vis.Timeline(container, items, groups, options);
