@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h3 class="modal-title">Nieuwe beheerder aanmaken</h3>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="beheerder-projectcode">Voornaam </label>
+            <input type="text" class="form-control" id="beheerder-projectcode" ng-model="cbehCtrl.beheerder.voorNaam" placeholder="Voornaam">
+        </div>
+        <div class="form-group">
+            <label for="beheerder-startdatum">FamilieNaam</label>
+            <input type="text" class="form-control" id="beheerder-informeelstartdatum" ng-model="cbehCtrl.beheerder.familieNaam" placeholder="Familie naam">
+        </div>
+
+        <div class="form-group">
+            <label for="beheerder-einddatum">Email</label>
+            <input type="text" class="form-control" id="beheerder-informeeleinddatum" ng-model="cbehCtrl.beheerder.email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="beheerder-startdatum">Passwoord</label>
+            <input type="text" class="form-control" id="beheerder-informeelstartdatum" ng-model="cbehCtrl.beheerder.passwoord" placeholder="Passwoord">
+        </div>
+    </form>
+</div
+
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="cbehCtrl.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="cbehCtrl.cancel()">Cancel</button>
+</div>

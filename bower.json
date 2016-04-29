@@ -6,13 +6,16 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "^1.5.3",
+    "angular": "~1.5.5",
     "angular-route": "^1.5.3",
     "angular-resource": "^1.5.3",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
     "angular-bootstrap": "^1.3.1",
-    "bootstrap": "^3.3.6"
+    "bootstrap": "~3.3.6",
+    "angular-horizontal-timeline": "*",
+    "timesheet.js": "https://github.com/sbstjn/timesheet.js.git",
+    "vis": "~4.16.1"
   }
 }

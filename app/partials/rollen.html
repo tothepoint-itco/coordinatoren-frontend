@@ -1,0 +1,22 @@
+<h1>Rollen</h1>
+<p>
+    <a class="btn btn-sm btn-primary" href="" role="button" ng-click="rolCtrl.createNewRol()">Rol aanmaken</a>
+</p>
+
+<p>Onderstaande rollen zijn gekend in het systeem:</p>
+
+<table class="table table-hover">
+    <tr>
+        <th>Rol naam</th>
+        <th>Beheerder Id</th>
+        <th>BusinessUnit Id</th>
+    </tr>
+    <tr ng-repeat="rol in rolCtrl.aggregatedRollen">
+        <td>{{rol.rolNaam}} {{rol.bediende.familieNaam}}</td>
+        <td>{{rol.beheerder.voorNaam}}</td>
+        <td>{{rol.businessUnit.naam}}</td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="rolCtrl.deleteRol(rol.id)"></span>
+        </td>
+    </tr>
+</table>
