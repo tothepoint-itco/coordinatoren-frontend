@@ -17,18 +17,46 @@ function($rootScope) {
     this.drawTimeline = (data) => {
         var container = document.getElementById("visualization-"+data.consultant.id);
 
-        var items = new vis.DataSet([
-            {id: 1, content: 'item 1', start: '2013-04-20'},
-            {id: 2, content: 'item 2', start: '2013-04-14'},
-            {id: 3, content: 'item 3', start: '2013-04-18'},
-            {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
-            {id: 5, content: 'item 5', start: '2013-04-25'},
-            {id: 6, content: 'item 6', start: '2013-04-27'}
-        ]);
+        var dataSetArray = [];
 
-        var options = {};
+        var groups = [];
 
-        var timeline = new vis.Timeline(container, items, options);
+        data.akkoorden.map((akkoordAggregated) => {
+            groups.push({id: akkoordAggregated.opdracht.id, content: akkoordAggregated.opdracht.klant});
+
+            dataSetArray.push({
+                group: akkoordAggregated.opdracht.id,
+                //content: akkoordAggregated.opdracht.klant,
+                start: akkoordAggregated.akkoord.informeelStartDatum,
+                end: akkoordAggregated.akkoord.informeelEindDatum,
+                style: "background-color: #d5ddf7",
+                title: "Loopt informeel van: \n" + akkoordAggregated.akkoord.informeelStartDatum + " tot " + akkoordAggregated.akkoord.informeelEindDatum
+            });
+
+            akkoordAggregated.bestelbonnen.map((bestelbon) => {
+                var entry = {
+                    group: akkoordAggregated.opdracht.id,
+                    //content: akkoordAggregated.opdracht.klant,
+                    start: bestelbon.startDatum,
+                    end: bestelbon.eindDatum,
+                    style: "background-color: #20bd00",
+                    title: "Bestelbon loopt van: \n" + bestelbon.startDatum + " tot " + bestelbon.eindDatum
+                };
+                dataSetArray.push(entry);
+            })
+
+
+        });
+
+        var items = new vis.DataSet(dataSetArray);
+
+
+        var options = {
+            stack: false,
+            selectable: false
+        };
+
+        var timeline = new vis.Timeline(container, items, groups, options);
     }
 
 

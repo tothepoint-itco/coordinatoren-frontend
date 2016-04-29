@@ -2,7 +2,7 @@
 
 <p>Onderstaande planningen zijn gekend in het systeem:</p>
 
-<div ng-repeat="consultant in planningCtrl.consultants" ng-click="planningCtrl.getSelection(consultant.akkoorden)">
+<div ng-repeat="aggregatedConsultant in planningCtrl.aggregatedConsultants">
 
     <table class="table table-hover" >
         <tr>
@@ -16,47 +16,48 @@
             <th>Tot</th>
         </tr>
         <tr>
-            <td>{{consultant.familieNaam}}</td>
-            <td>{{consultant.voorNaam}}</td>
-            <td>Van {{consultant.contract.startDatum}} Tot {{consultant.contract.eindDatum}}</td>
-            <td>{{consultant.businessUnit.naam}}</td>
+            <td>{{aggregatedConsultant.consultant.familieNaam}}</td>
+            <td>{{aggregatedConsultant.consultant.voorNaam}}</td>
+            <td>Van {{aggregatedConsultant.contract.startDatum}} Tot {{aggregatedConsultant.contract.eindDatum}}</td>
+            <td>{{aggregatedConsultant.contract.businessUnit.naam}}</td>
             <td>
                 <table class="table">
-                    <tr ng-repeat="akkoord in consultant.akkoorden">
+                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
                         <td>{{akkoord.opdracht.locatie}}</td>
                     </tr>
                 </table>
             </td>
             <td>
                 <table class="table">
-                    <tr ng-repeat="akkoord in consultant.akkoorden">
+                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
                         <td>{{akkoord.opdracht.klant}}</td>
                     </tr>
                 </table>
             </td>
             <td>
                 <table class="table">
-                    <tr ng-repeat="akkoord in consultant.akkoorden">
-                        <td>{{akkoord.informeelStartDatum}}</td>
+                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
+                        <td>{{akkoord.akkoord.informeelStartDatum}}</td>
                     </tr>
                 </table>
             </td>
             <td>
                 <table class="table">
-                    <tr ng-repeat="akkoord in consultant.akkoorden">
-                        <td>{{akkoord.informeelEindDatum}}</td>
+                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
+                        <td>{{akkoord.akkoord.informeelEindDatum}}</td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
 
-    <div id="{{consultant.id}}"></div>
+    <timeline data="aggregatedConsultant"></timeline>
 
+    <br />
+    <hr />
+    <br />
 
 </div>
-
-<div id="visualization"></div>
 
 
 <!--        <td >
