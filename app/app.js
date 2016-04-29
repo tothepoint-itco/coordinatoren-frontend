@@ -14,6 +14,17 @@ angular.module('coordinatorentoolControllers', []);
 angular.module('coordinatorentoolServices', []);
 angular.module('coordinatorentoolModels', []);
 
+coordinatorentool.directive("timeline", function() {
+    return {
+        restrict: "E",
+        controller: "TimelineController",
+        controllerAs: "timeCtrl",
+        scope: {
+            data: '='
+        },
+        templateUrl: "partials/timeline-directive.html"
+    };
+});
 
 
 coordinatorentool.config(['$routeProvider', function($routeProvider) {
