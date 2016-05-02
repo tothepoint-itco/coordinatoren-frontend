@@ -10,20 +10,18 @@
             <th>Voornaam</th>
             <th>Contract</th>
             <th>Business unit </th>
-            <th>Project </th>
+            <th>Project code </th>
             <th>Klant</th>
-            <th>Van</th>
-            <th>Tot</th>
         </tr>
         <tr>
             <td>{{aggregatedConsultant.consultant.familieNaam}}</td>
             <td>{{aggregatedConsultant.consultant.voorNaam}}</td>
-            <td>Van {{aggregatedConsultant.contract.startDatum}} Tot {{aggregatedConsultant.contract.eindDatum}}</td>
-            <td>{{aggregatedConsultant.contract.businessUnit.naam}}</td>
+            <td>Van {{planningCtrl.consultant.startDatum}} Tot {{planningCtrl.consultant.eindDatum}}</td>
+            <td>{{aggregatedConsultant.contract.businessUnit}}</td>
             <td>
                 <table class="table">
                     <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-                        <td>{{akkoord.opdracht.locatie}}</td>
+                        <td>{{akkoord.akkoord.projectCode}}</td>
                     </tr>
                 </table>
             </td>
@@ -35,27 +33,19 @@
                 </table>
             </td>
             <td>
-                <table class="table">
-                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-                        <td>{{akkoord.akkoord.informeelStartDatum}}</td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <table class="table">
-                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-                        <td>{{akkoord.akkoord.informeelEindDatum}}</td>
-                    </tr>
-                </table>
+                  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#{{aggregatedConsultant.consultant.id}}">+</button>
+
             </td>
         </tr>
     </table>
-
+    <div id="{{aggregatedConsultant.consultant.id}}" class="collapse">
     <timeline data="aggregatedConsultant"></timeline>
+    </div>
 
-    <br />
     <hr />
-    <br />
+
+
+
 
 </div>
 

@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{gmCtrl.title}}</h3>
+</div>
+<div class="modal-body">
+
+<table class="table">
+  <tr>
+    <th>Start datum</th>
+    <th>Eind datum</th>
+  </tr>
+  <tr>
+    <td>{{gmCtrl.body.startDatum}}</td>
+    <td>{{gmCtrl.body.eindDatum}}</td>
+
+  </tr>
+</table>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="gmCtrl.cancel()">Cancel</button>
+</div>
