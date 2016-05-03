@@ -6,7 +6,7 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
 
     $rootScope.$watch(
         () => this.data, (newVal, oldVal) => {
-            if ((newVal != undefined) && (newVal != oldVal)) {
+            if ((oldVal == undefined) && (newVal != oldVal)) {
                 this.drawTimeline(newVal);
             }
         },

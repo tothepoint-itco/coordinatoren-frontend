@@ -16,8 +16,8 @@
         <tr>
             <td>{{aggregatedConsultant.consultant.familieNaam}}</td>
             <td>{{aggregatedConsultant.consultant.voorNaam}}</td>
-            <td>Van {{planningCtrl.consultant.startDatum}} Tot {{planningCtrl.consultant.eindDatum}}</td>
-            <td>{{aggregatedConsultant.contract.businessUnit}}</td>
+            <td>Van {{aggregatedConsultant.contract.startDatum}} tot {{aggregatedConsultant.contract.eindDatum}}</td>
+            <td>{{aggregatedConsultant.businessUnit.naam}}</td>
             <td>
                 <table class="table">
                     <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
@@ -48,14 +48,3 @@
 
 
 </div>
-
-
-<!--        <td >
-<table class="table">
-<tr ng-repeat="akkoord in planningCtrl.aggregatedAkkoorden">
-<td>{{akkoord.businessUnit.naam}}</td>
-</tr>
-</table>
-</td>
-
--->

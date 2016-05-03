@@ -9,25 +9,21 @@ function(BusinessUnit, Contract, ConsultantAggregated) {
             this.contract = {};
             this.aggregatedConsultants = success;
             console.log("aggregatedConsultants %o",success);
-            this.aggregatedConsultants.map((aggregatedConsultant)=>
+            this.aggregatedConsultants.map((aggregatedConsultant)=> {
                 Contract.query(
-                    {consultantId: aggregatedConsultant.consultant.id},
+                    {bediendeId: aggregatedConsultant.consultant.id},
                     (contract)=> {
-                        console.log("contract %o", contract[0].startDatum)
-                        this.aggregatedConsultant.startDatum = contract[0].startDatum;
-                        this.aggregatedConsultant.eindDatum  = contract[0].eindDatum;
-                        BusinessUnit.query(
-                            {id:this.contract.businessUnitId},
+                        aggregatedConsultant.contract = contract[0];
+                         BusinessUnit.query(
+                            {id:  contract.businessUnitId},
                             (businessUnit) =>{
-                                this.contract.businessUnit = businessUnit[0].naam;
-                                console.log("contract %o",this.contract.businessUnit)
+                                 aggregatedConsultant.businessUnit = businessUnit[0];
+
                             }
                         )
                     }
                 )
-
-            )
-
+            })
         },
         (error) => {
             console.log("Call failed, result was %o", error);
