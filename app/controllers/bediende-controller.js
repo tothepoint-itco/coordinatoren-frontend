@@ -1,10 +1,11 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("BediendeController", ["BediendeResource", "$uibModal",
-function(Bediende, $uibModal) {
+angular.module('coordinatorentoolControllers').controller("BediendeController", ["BediendeResource", "$uibModal", "ContractResource",
+function(Bediende, $uibModal, Contract) {
     Bediende.query(
         (success) => {
+            console.log("Bediende query %o", success);
             this.bediendes = success;
         }
     );
@@ -55,18 +56,33 @@ function(Bediende, $uibModal) {
 
     this.createNewBediende = () => {
         $uibModal.open(createBediendeModal).result.then(
-            (bediende) => {
-
+            (body) => {
+                console.log("lalalala %o", body);
                 Bediende.save(
-                    bediende,
+                    body.bediende,
                     (successResult) => {
                         console.log("Bediende was saved! Result is %o", successResult);
                         this.bediendes.push(successResult);
+                        body.contract.bediendeId = successResult.id;
+                        console.log("Diede %o",body.contract)
+                        Contract.save(
+                            body.contract,
+                            (successResult) => {
+                                console.log("Contract was saved! Result is %o", successResult);
+
+                                //aggregateContract(successResult);
+                                //this.aggregatedContracts.push(successResult);
+                            },
+                            (errorResult) => {
+                                console.log("Saving Contract failed! Result was %o", errorResult);
+                            }
+                        );
                     },
                     (errorResult) => {
                         console.log("Saving Bediende failed! Result was %o", errorResult);
                     }
                 );
+
             },
             () => {
                 console.log("modal closed!");

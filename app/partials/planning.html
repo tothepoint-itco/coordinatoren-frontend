@@ -6,45 +6,52 @@
 
     <table class="table table-hover" >
         <tr>
-            <th>Naam</th>
-            <th>Voornaam</th>
-            <th>Contract</th>
-            <th>Business unit </th>
-            <th>Project code </th>
-            <th>Klant</th>
+            <th class="col-md-1">Naam</th>
+            <th class="col-md-1">Voornaam</th>
+            <th class="col-md-10">Timeline</th>
+
         </tr>
         <tr>
             <td>{{aggregatedConsultant.consultant.familieNaam}}</td>
             <td>{{aggregatedConsultant.consultant.voorNaam}}</td>
-            <td>Van {{aggregatedConsultant.contract.startDatum}} tot {{aggregatedConsultant.contract.eindDatum}}</td>
-            <td>{{aggregatedConsultant.businessUnit.naam}}</td>
             <td>
-                <table class="table">
-                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-                        <td>{{akkoord.akkoord.projectCode}}</td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <table class="table">
-                    <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-                        <td>{{akkoord.opdracht.klant}}</td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                  <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#{{aggregatedConsultant.consultant.id}}">+</button>
-
+                <div id="{{aggregatedConsultant.consultant.id}}" >
+                    <timeline data="aggregatedConsultant"></timeline>
+                </div>
             </td>
         </tr>
     </table>
-    <div id="{{aggregatedConsultant.consultant.id}}" class="collapse">
-    <timeline data="aggregatedConsultant"></timeline>
-    </div>
 
-    <hr />
 
 
 
 
 </div>
+<!--
+<th>Contract</th>
+<th>Business unit </th>
+<th>Project code </th>
+<th>Klant</th>
+
+
+<td>Van {{aggregatedConsultant.contract.startDatum}} tot {{aggregatedConsultant.contract.eindDatum}}</td>
+<td>{{aggregatedConsultant.businessUnit.naam}}</td>
+<td>
+    <table class="table">
+        <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
+            <td>{{akkoord.akkoord.projectCode}}</td>
+        </tr>
+    </table>
+</td>
+<td>
+    <table class="table">
+        <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
+            <td>{{akkoord.opdracht.klant}}</td>
+        </tr>
+    </table>
+</td>
+
+
+
+
+-->
