@@ -5,6 +5,8 @@ var coordinatorentool = angular.module('coordinatorentool', [
     'coordinatorentoolControllers',
     'coordinatorentoolServices',
     'coordinatorentoolModels',
+    'ngCookies',
+    'angular-jwt',
     'ngRoute',
     'ngResource',
     'ui.bootstrap'
@@ -27,7 +29,7 @@ coordinatorentool.directive("timeline", function() {
 });
 
 
-coordinatorentool.config(['$routeProvider', function($routeProvider) {
+coordinatorentool.config(['$routeProvider','$httpProvider','jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
     $routeProvider
     .when('/business-units', {
         templateUrl: "partials/business-units.html",
@@ -86,4 +88,10 @@ coordinatorentool.config(['$routeProvider', function($routeProvider) {
         controllerAs: "contractCtrl"
     })
     .otherwise({redirectTo: '/business-units'});
+
+    jwtInterceptorProvider.tokenGetter = ['$cookies', function($cookies) {
+        console.log("app.js %o", $cookies.get('auth_token'));
+        return $cookies.get('auth_token');
+    }];
+    $httpProvider.interceptors.push('jwtInterceptor');
 }]);

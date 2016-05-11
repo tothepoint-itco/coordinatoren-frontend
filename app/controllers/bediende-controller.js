@@ -57,14 +57,13 @@ function(Bediende, $uibModal, Contract) {
     this.createNewBediende = () => {
         $uibModal.open(createBediendeModal).result.then(
             (body) => {
-                console.log("lalalala %o", body);
                 Bediende.save(
                     body.bediende,
                     (successResult) => {
                         console.log("Bediende was saved! Result is %o", successResult);
                         this.bediendes.push(successResult);
                         body.contract.bediendeId = successResult.id;
-                        console.log("Diede %o",body.contract)
+                        //console.log("Bedie %o",body.contract)
                         Contract.save(
                             body.contract,
                             (successResult) => {

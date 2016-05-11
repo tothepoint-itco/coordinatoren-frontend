@@ -2,9 +2,9 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("BeheerderController", ["BeheerderResource", "RolResource","BusinessUnitResource", "$uibModal",
-function(Beheerder, Rol, BusinessUnit, $uibModal) {
-  Beheerder.query(
+angular.module('coordinatorentoolControllers').controller("BeheerderController", ["BeheerderResource", "RolResource", "BusinessUnitResource", "UserResource", "$uibModal", "$cookies",
+function(Beheerder, Rol, BusinessUnit, User, $uibModal, $cookies) {
+  User.query(
       (success) => {
           this.beheerders = success;
       }
@@ -14,6 +14,28 @@ function(Beheerder, Rol, BusinessUnit, $uibModal) {
         controller: "CreateBeheerderController",
         controllerAs: "cbehCtrl",
         keyboard: false
+    };
+    var createUserModal = {
+        templateUrl: "partials/modals/create-user.html",
+        controller: "CreateUserController",
+        controllerAs: "cusCtrl",
+        keyboard: false
+    };
+
+    this.createNewUser = () => {
+        console.log("Success %o", $cookies.getObject('auth_token'));
+        $uibModal.open(createUserModal).result.then(
+            (body) => {
+                User.save(body,
+                (success)=>{
+                    console.log("Created new user %o", body)
+                }
+                )
+
+
+            }
+
+        );
     };
 
     this.createConfirmModal = (title, body) => {
