@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module("coordinatorentoolModels").factory("BestelbonResource", ["$resource", ($resource) => {
-    return $resource("http://192.168.99.100:8765/planning/bestelbonnen/:id", {id: '@id'}, {
+angular.module("coordinatorentoolModels").factory("BestelbonResource", ["$resource", "EnvironmentConfig", ($resource, $env) => {
+    return $resource($env.api + "/planning/bestelbonnen/:id", {id: '@id'}, {
 
     });
 }]);

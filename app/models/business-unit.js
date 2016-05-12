@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module("coordinatorentoolModels").factory("BusinessUnitResource", ["$resource", ($resource) => {
-    return $resource("http://192.168.99.100:8765/business-units/:id", {id: '@id'}, {
+angular.module("coordinatorentoolModels").factory("BusinessUnitResource", ["$resource", "EnvironmentConfig", ($resource, $env) => {
+    return $resource($env.api + "/business-units/:id", {id: '@id'}, {
 
     });
 }]);
