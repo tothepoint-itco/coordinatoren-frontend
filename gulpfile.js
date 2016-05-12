@@ -4,6 +4,9 @@ var gulpNgConfig = require('gulp-ng-config');
 var environments = require('gulp-environments');
 var env_docker = environments.make("docker");
 
+var ts = require('gulp-typescript');
+var tsProject = ts.createProject('tsconfig.json');
+
 gulp.task('default', function() {
   // place code for your default task here
 });
@@ -40,4 +43,10 @@ gulp.task('config', function() {
     } else {
         gulp.start('config:dev');
     }
+});
+
+gulp.task('tscompile', function() {
+    var tsResult = tsProject.src()
+    .pipe(ts(tsProject));
+    return tsResult.js.pipe(gulp.dest('.'));
 });
