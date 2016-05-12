@@ -5,7 +5,10 @@ var environments = require('gulp-environments');
 var env_docker = environments.make("docker");
 
 var ts = require('gulp-typescript');
+ts.reporter.nullReporter()
 var tsProject = ts.createProject('tsconfig.json');
+
+var uglify = require('gulp-uglify');
 
 gulp.task('default', function() {
   // place code for your default task here
@@ -46,7 +49,16 @@ gulp.task('config', function() {
 });
 
 gulp.task('tscompile', function() {
-    var tsResult = tsProject.src()
-    .pipe(ts(tsProject));
-    return tsResult.js.pipe(gulp.dest('.'));
+    tsProject.src()
+    .pipe(ts(tsProject, undefined, ts.reporter.nullReporter()))
+    .js
+    .pipe(gulp.dest('.'));
+});
+
+gulp.task('uglify', function() {
+    if (environments.production()) {
+        gulp.src('app/*.js')
+          .pipe(uglify())
+          .pipe(gulp.dest('./app'));
+    }
 });
