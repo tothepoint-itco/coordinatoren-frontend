@@ -90,8 +90,8 @@ coordinatorentool.config(['$routeProvider','$httpProvider','jwtInterceptorProvid
     .otherwise({redirectTo: '/business-units'});
 
     jwtInterceptorProvider.tokenGetter = ['$cookies', function($cookies) {
-        console.log("app.js %o", $cookies.get('auth_token'));
-        return $cookies.get('auth_token');
+        //console.log("app.js %o", $cookies.get('Authorization'));
+        return $cookies.get('Authorization');
     }];
     $httpProvider.interceptors.push('jwtInterceptor');
 }]);

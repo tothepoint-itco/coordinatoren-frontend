@@ -3,13 +3,14 @@ angular.module('coordinatorentoolControllers').controller("LoginController",
 function(Login, $uibModal, $cookies) {
     this.credentials = {};
     this.authenticationRequest ={};
-
+    this.token = {};
 
     this.ok = () => {
         Login.save(this.credentials,
             (success)=>{
-                $cookies.putObject('auth_token',success);
-                console.log("Success %o", $cookies.getObject('auth_token'));
+                console.log("Token %", success.token)
+                $cookies.putObject('Authorization', success.token);
+                console.log("Success %o", $cookies.getObject('Authorization'));
             }
         )
     };

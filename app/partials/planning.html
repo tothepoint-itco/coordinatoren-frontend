@@ -2,16 +2,19 @@
 
 <p>Onderstaande planningen zijn gekend in het systeem:</p>
 
-<div ng-repeat="aggregatedConsultant in planningCtrl.aggregatedConsultants">
-
+<div >
+    <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
     <table class="table table-hover" >
         <tr>
-            <th class="col-md-1">Naam</th>
+            <th class="col-md-1">Naam
+                <button ng-click="order('consultant.familieNaam')"></button>
+                <span class="sortorder" ng-show="predicate === '-consultant.familieNaam'" ng-class="{reverse:reverse}"></span>
+            </th>
             <th class="col-md-1">Voornaam</th>
             <th class="col-md-10">Timeline</th>
 
         </tr>
-        <tr>
+        <tr ng-repeat="aggregatedConsultant in planningCtrl.aggregatedConsultants">
             <td>{{aggregatedConsultant.consultant.familieNaam}}</td>
             <td>{{aggregatedConsultant.consultant.voorNaam}}</td>
             <td>
@@ -20,6 +23,9 @@
                 </div>
             </td>
         </tr>
+
+    <br />
+
     </table>
 
 
