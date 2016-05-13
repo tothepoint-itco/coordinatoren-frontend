@@ -10,13 +10,18 @@
         <th>Project code</th>
         <th>Start datum</th>
         <th>Eind datum</th>
+        <th>Acties</th>
+        <th>Wijzigen</th>
     </tr>
     <tr ng-repeat="bon in bestelbonCtrl.bestelbonnen">
         <td><a href="#/bestellbonnen/{{bon.id}}">{{bon.projectCode}}</a></td>
         <td>{{bon.startDatum}}</td>
         <td>{{bon.eindDatum}}</td>
         <td>
-            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="bestelbonCtrl.deleteBestelBon(bon.id)"></span>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="bestelbonCtrl.deleteBestelbon(bon.id)"></span>
+        </td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="bestelbonCtrl.editBestelbon(bon.id)"></span>
         </td>
     </tr>
 </table>

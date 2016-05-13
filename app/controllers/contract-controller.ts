@@ -54,6 +54,13 @@ function(Contract, Bediende, BusinessUnit, $uibModal) {
         keyboard: false
     };
 
+    var editContractModal = {
+        templateUrl: "partials/modals/edit-contract.html",
+        controller: "CreateContractController",
+        controllerAs: "ccCtrl",
+        keyboard: false
+    };
+
     this.createConfirmModal = (title, body) => {
         return {
             templateUrl: "partials/modals/confirm.html",
@@ -105,6 +112,35 @@ function(Contract, Bediende, BusinessUnit, $uibModal) {
                     },
                     (errorResult) => {
                         console.log("Saving Contract failed! Result was %o", errorResult);
+                    }
+                );
+            },
+            () => {
+                console.log("modal closed!");
+            }
+        );
+    };
+
+    this.editContract = (contractId) => {
+        var index = undefined;
+        var contractToEdit = this.aggregatedContracts.filter((contract, i) => {
+            if (contract.id == contractId) { index = i}
+            return contract.id == contractId;
+        });
+        $uibModal.open(editContractModal).result.then(
+            (contract) => {
+
+                Contract.UPDATE({id: contractId},
+                    contract,
+                    (successResult) => {
+                        console.log("Contract was edited! Result is %o", successResult);
+
+                        aggregateContract(successResult);
+                        this.contracts.splice(index, 1);
+                        this.aggregatedContracts.push(successResult);
+                    },
+                    (errorResult) => {
+                        console.log("Editing Contract failed! Result was %o", errorResult);
                     }
                 );
             },

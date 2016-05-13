@@ -8,19 +8,26 @@
 <table class="table table-hover">
     <tr>
         <th>Project code</th>
-        <th>Opdracht id</th>
-        <th>Consultant id</th>
+        <th>Klant</th>
+        <th>Consultant</th>
+        <th>Bezetting</th>
         <th>Start datum</th>
         <th>Eind datum</th>
+        <th>Acties</th>
+        <th>Wijzigen</th>
     </tr>
     <tr ng-repeat="akkoord in akkoordCtrl.akkoorden">
-        <td><a href="#/bestellakkoordnen/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
-        <td>{{akkoord.opdrachtId}}</td>
-        <td>{{akkoord.consultantId}}</td>
+        <td><a href="#/akkoorden/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
+        <td>{{akkoord.opdracht}}</td>
+        <td>{{akkoord.consultant}}</td>
+        <td>{{akkoord.bezettingsGraad}}</td>
         <td>{{akkoord.informeelStartDatum}}</td>
         <td>{{akkoord.informeelEindDatum}}</td>
         <td>
             <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="akkoordCtrl.deleteAkkoord(akkoord.id)"></span>
+        </td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="akkoordCtrl.editAkkoord(akkoord.id)"></span>
         </td>
     </tr>
 </table>

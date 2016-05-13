@@ -15,6 +15,12 @@ function(BusinessUnit, $uibModal) {
         controllerAs: "cbuCtrl",
         keyboard: false
     };
+    var editBusinessUnitModal = {
+        templateUrl: "partials/modals/edit-business-unit.html",
+        controller: "CreateBusinessUnitController",
+        controllerAs: "cbuCtrl",
+        keyboard: false
+    };
 
     this.createConfirmModal = (title, body) => {
         return {
@@ -56,7 +62,6 @@ function(BusinessUnit, $uibModal) {
     this.createNewBusinessUnit = () => {
         $uibModal.open(createBusinessUnitModal).result.then(
             (businessUnit) => {
-
                 BusinessUnit.save(
                     businessUnit,
                     (successResult) => {
@@ -65,6 +70,34 @@ function(BusinessUnit, $uibModal) {
                     },
                     (errorResult) => {
                         console.log("Saving BusinessUnit failed! Result was %o", errorResult);
+                    }
+                );
+            },
+            () => {
+                console.log("modal closed!");
+            }
+        );
+    };
+
+     this.editBusinessUnit = (businessUnitId) => {
+        var index = undefined;
+        var businessUnitToEdit = this.businessUnits.filter((businessUnit, i) => {
+            if (businessUnit.id == businessUnitId) { index = i}
+            return businessUnit.id == businessUnitId;
+        });
+        $uibModal.open(editBusinessUnitModal).result.then(
+            (businessUnit) => {
+                BusinessUnit.UPDATE(
+                    {id: businessUnitToEdit[0].id},
+                    businessUnit,
+                    (successResult) => {
+                        console.log("BusinessUnit was edited! Result is %o", successResult);
+                        this.businessUnits.splice(index, 1);
+                        this.businessUnits.push(successResult);
+
+                    },
+                    (errorResult) => {
+                        console.log("Editing BusinessUnit failed! Result was %o", errorResult);
                     }
                 );
             },

@@ -14,14 +14,16 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
                 Consultant.get(
                     {id: akkoord.consultantId},
                     (consultant) => {
-                        akkoord.consultant = consultant;
+                        console.log("consultant %o",consultant);
+                        akkoord.consultant = consultant.voorNaam+" "+consultant.familieNaam  ;
                     }
                 );
 
                 Opdracht.get(
                     {id: akkoord.opdrachtId},
                     (opdracht) => {
-                        akkoord.opdracht = opdracht;
+                        console.log("opdracht %o",opdracht);
+                        akkoord.opdracht = opdracht.klant;
                     }
                 );
 
@@ -49,6 +51,12 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
 
     var createAkkoordModal = {
         templateUrl: "partials/modals/create-akkoord.html",
+        controller: "CreateAkkoordController",
+        controllerAs: "cakkCtrl",
+        keyboard: false
+    };
+    var editAkkoordModal = {
+        templateUrl: "partials/modals/edit-akkoord.html",
         controller: "CreateAkkoordController",
         controllerAs: "cakkCtrl",
         keyboard: false
@@ -101,6 +109,29 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
                         console.log("Akkoord was saved! Result is %o", successResult);
 
                         aggregateAkkoord(successResult);
+                        this.aggregatedAkkoorden.push(successResult);
+                    },
+                    (errorResult) => {
+                        console.log("Saving akkoord failed! Result was %o", errorResult);
+                    }
+                );
+            },
+            () => {
+                console.log("modal closed!");
+            }
+        );
+    };
+    this.editAkkoord = (akkoordId) => {
+        $uibModal.open(editAkkoordModal).result.then(
+            (akkoord) => {
+              console.log("Akkoord voor saving: %o", akkoord);
+                Akkoord.UPDATE({id: akkoordId},
+                    akkoord,
+                    (successResult) => {
+                        console.log("Akkoord was saved! Result is %o", successResult);
+
+                        aggregateAkkoord(successResult);
+                        this.akkoorden.splice(index, 1);
                         this.aggregatedAkkoorden.push(successResult);
                     },
                     (errorResult) => {

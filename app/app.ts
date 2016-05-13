@@ -6,6 +6,8 @@ var coordinatorentool = angular.module('coordinatorentool', [
     'coordinatorentoolControllers',
     'coordinatorentoolServices',
     'coordinatorentoolModels',
+    'ngCookies',
+    'angular-jwt',
     'ngRoute',
     'ngResource',
     'ui.bootstrap'
@@ -28,63 +30,93 @@ coordinatorentool.directive("timeline", function() {
 });
 
 
-coordinatorentool.config(['$routeProvider', function($routeProvider) {
+coordinatorentool.config(['$routeProvider','$httpProvider','jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
     $routeProvider
     .when('/business-units', {
         templateUrl: "partials/business-units.html",
         controller: "BusinessUnitController",
-        controllerAs: "businessCtrl"
+        controllerAs: "businessCtrl",
+        requiresLogin: true
     })
     .when('/planning', {
         templateUrl: "partials/planning.html",
         controller: "PlanningController",
-        controllerAs: "planningCtrl"
+        controllerAs: "planningCtrl",
+        requiresLogin: true
     })
     .when('/bestelbonnen', {
         templateUrl: "partials/bestelbonnen.html",
         controller: "BestelbonController",
-        controllerAs: "bestelbonCtrl"
+        controllerAs: "bestelbonCtrl",
+        requiresLogin: true
     })
     .when('/rollen', {
         templateUrl: "partials/rollen.html",
         controller: "RolController",
-        controllerAs: "rolCtrl"
+        controllerAs: "rolCtrl",
+        requiresLogin: true
+
     })
     .when('/login', {
         templateUrl: "partials/login.html",
         controller: "LoginController",
-        controllerAs: "loginCtrl"
+        controllerAs: "loginCtrl",
+        requiresLogin: false
     })
     .when('/opdrachten', {
         templateUrl: "partials/opdrachten.html",
         controller: "OpdrachtController",
-        controllerAs: "opdrachtCtrl"
+        controllerAs: "opdrachtCtrl",
+        requiresLogin: true
     })
     .when('/akkoorden', {
         templateUrl: "partials/akkoorden.html",
         controller: "AkkoordController",
-        controllerAs: "akkoordCtrl"
+        controllerAs: "akkoordCtrl",
+        requiresLogin: true
     })
     .when('/beheerders', {
         templateUrl: "partials/beheerders.html",
-        controller: "BeheerderController",
-        controllerAs: "beheerderCtrl"
+        controller: "UserController",
+        controllerAs: "userCtrl",
+        requiresLogin: true
     })
 
     .when('/bediendes/:bediendeId', {
         templateUrl: "partials/bediende-details.html",
         controller: "BediendeDetailsController",
-        controllerAs: "bediendeDetailsCtrl"
+        controllerAs: "bediendeDetailsCtrl",
+        requiresLogin: true
     })
     .when('/bediendes', {
         templateUrl: "partials/bediendes.html",
         controller: "BediendeController",
-        controllerAs: "bediendeCtrl"
+        controllerAs: "bediendeCtrl",
+        requiresLogin: true
     })
     .when('/contracts', {
         templateUrl: "partials/contracts.html",
         controller: "ContractController",
-        controllerAs: "contractCtrl"
+        controllerAs: "contractCtrl",
+        requiresLogin: true
     })
     .otherwise({redirectTo: '/business-units'});
+
+    jwtInterceptorProvider.tokenGetter = ['$cookies', function($cookies) {
+        //console.log("app.js %o", $cookies.get('Authorization'));
+        return $cookies.get('Authorization');
+    }];
+    $httpProvider.interceptors.push('jwtInterceptor');
+}])
+.run(['$rootScope', '$location', '$cookies',
+    function($rootScope, $location, $cookies) {
+
+    $rootScope.$on('$routeChangeStart', function (event, next) {
+            if (next.$$route != undefined && next.$$route.requiresLogin) {
+                if ($cookies.get('Authorization') == null) {
+                    event.preventDefault();
+                    $location.path('/login');
+                }
+            }
+    })
 }]);

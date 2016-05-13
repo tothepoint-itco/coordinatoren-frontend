@@ -12,6 +12,12 @@ Opdracht.query(
     controllerAs:"copdCtrl",
     keyboard: false
   };
+  var editOpdrachtModal = {
+    templateUrl: "partials/modals/edit-opdracht.html",
+    controller:"CreateOpdrachtController",
+    controllerAs:"copdCtrl",
+    keyboard: false
+  };
   this.createConfirmModal = (title, body) => {
       return {
         templateUrl: "partials/modals/confirm.html",
@@ -54,6 +60,31 @@ Opdracht.query(
             opdracht,
             (successResult)=> {
               console.log("Opdracht was saved! Result is %o", successResult);
+              this.opdrachten.push(successResult);
+            },
+            (errorResult) => {
+              console.log("Saving Opdracht failed! Result was %o", errorResult);
+            }
+          );
+        },
+        ()=>{
+          console.log("modal closed!")
+        }
+      );
+    };
+    this.editOpdracht = (opdrachtId) =>{
+        var index = undefined;
+        var opdrachtToDelete = this.opdrachten.filter((opdracht, i)=>{
+          if(opdracht.id == opdrachtId) {index = i}
+          return opdracht.id == opdrachtId;
+        });
+      $uibModal.open(editOpdrachtModal).result.then(
+        (opdracht)=> {
+          Opdracht.UPDATE({id:opdrachtId},
+            opdracht,
+            (successResult)=> {
+              console.log("Opdracht was saved! Result is %o", successResult);
+              this.opdrachten.splice(index,1)
               this.opdrachten.push(successResult);
             },
             (errorResult) => {

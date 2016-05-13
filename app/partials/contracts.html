@@ -1,8 +1,9 @@
 <h1>Contracten</h1>
+<!--
 <p>
     <a class="btn btn-sm btn-primary" href="" role="button" ng-click="contractCtrl.createNewContract()">Contract aanmaken</a>
 </p>
-
+-->
 <p>Onderstaande contracten zijn gekend in het systeem:</p>
 
 <table class="table table-hover">
@@ -12,6 +13,8 @@
         <th>Begindatum</th>
         <th>Einddatum</th>
         <th>Acties</th>
+        <th>Wijzigen</th>
+
     </tr>
     <tr ng-repeat="contract in contractCtrl.aggregatedContracts">
         <td>{{contract.bediende.voorNaam}} {{contract.bediende.familieNaam}}</td>
@@ -20,6 +23,9 @@
         <td>{{contract.eindDatum}}</td>
         <td>
             <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="contractCtrl.deleteContract(contract.id)"></span>
+        </td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="contractCtrl.editContract(contract.id)"></span>
         </td>
     </tr>
 </table>

@@ -45,6 +45,7 @@ function($uibModalInstance, Consultant, Opdracht){
     projectCode: undefined,
     opdrachtId: undefined,
     consultantId: undefined,
+    bezettingsGraad: undefined,
     informeelStartDatum: undefined,
     informeelEindDatum: undefined
   };
