@@ -12,6 +12,12 @@ Bestelbon.query(
     controllerAs:"cbonCtrl",
     keyboard: false
   };
+  var editBestelBonModal = {
+    templateUrl: "partials/modals/edit-bestelbon.html",
+    controller:"CreateBestelbonController",
+    controllerAs:"cbonCtrl",
+    keyboard: false
+  };
   this.createConfirmModal = (title, body) => {
       return {
         templateUrl: "partials/modals/confirm.html",
@@ -24,7 +30,7 @@ Bestelbon.query(
         }
       }
     }
-    this.deleteBestelBon = (bestelbonId)=> {
+    this.deletebestelBon = (bestelbonId)=> {
       var index = undefined;
       var bestelbonToDelete = this.bestelbonnen.filter((bestelbon, i)=>{
         if(bestelbon.id == bestelbonId) {index = i}
@@ -54,6 +60,31 @@ Bestelbon.query(
             bestelbon,
             (successResult)=> {
               console.log("Bestelbon was saved! Result is %o", successResult);
+              this.bestelbonnen.push(successResult);
+            },
+            (errorResult) => {
+              console.log("Saving Bestelbon failed! Result was %o", errorResult);
+            }
+          );
+        },
+        ()=>{
+          console.log("modal closed!")
+        }
+      );
+    };
+    this.editBestelbon = (bestelbonId) =>{
+        var index = undefined;
+        var bestelbonToEdit = this.bestelbonnen.filter((bestelbon, i)=>{
+          if(bestelbon.id == bestelbonId) {index = i}
+          return bestelbon.id == bestelbonId;
+        });
+      $uibModal.open(editBestelBonModal).result.then(
+        (bestelbon)=> {
+          Bestelbon.UPDATE({id: bestelbonId},
+            bestelbon,
+            (successResult)=> {
+              console.log("Bestelbon was saved! Result is %o", successResult);
+              this.bestelbonnen.splice(index,1)
               this.bestelbonnen.push(successResult);
             },
             (errorResult) => {

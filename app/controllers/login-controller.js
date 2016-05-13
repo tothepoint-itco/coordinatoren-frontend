@@ -11,7 +11,9 @@ function(Login, $uibModal, $cookies) {
                 console.log("Token %", success.token)
                 $cookies.putObject('Authorization', success.token);
                 console.log("Success %o", $cookies.getObject('Authorization'));
+                location.href = "#/planning";
             }
         )
+
     };
 }]);

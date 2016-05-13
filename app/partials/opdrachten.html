@@ -12,8 +12,10 @@
         <th>Account manager</th>
         <th>Start datum</th>
         <th>Deadline</th>
-        <th>klant</th>
-        <th>info</th>
+        <th>Klant</th>
+        <th>Info</th>
+        <th>Acties</th>
+        <th>Wijzigen</th>
 
     </tr>
     <tr ng-repeat="opdracht in opdrachtCtrl.opdrachten">
@@ -26,6 +28,9 @@
         <td>{{opdracht.info}}</td>
         <td>
             <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="opdrachtCtrl.deleteOpdracht(opdracht.id)"></span>
+        </td>
+        <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="opdrachtCtrl.editOpdracht(opdracht.id)"></span>
         </td>
     </tr>
 </table>

@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h3 class="modal-title">Contract aanpassen</h3>
+</div>
+<div class="modal-body">
+
+
+    <form>
+
+        <div class="form-group">
+            <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <button id="contract-bediende" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    {{ccCtrl.selectedBediendeLabel || "Kies bediende"}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="contract-bediende">
+                    <li role="menuitem" ng-repeat="bediende in ccCtrl.bediendes"><a ng-click="ccCtrl.selectBediende(bediende)" href="">{{bediende.voorNaam}} {{bediende.familieNaam}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="btn-group" uib-dropdown is-open="status.isopen2">
+                <button id="contract-business-unit" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    {{ccCtrl.selectedBusinessUnit.naam || "Kies business unit"}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="contract-business-unit">
+                    <li role="menuitem" ng-repeat="bu in ccCtrl.businessUnits"><a ng-click="ccCtrl.selectBusinessUnit(bu)" href="">{{bu.naam}}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="contract-start-datum">Startdatum (yyyy-mm-dd)</label>
+                <input type="text" class="form-control" id="contract-start-datum" ng-model="ccCtrl.contract.startDatum" placeholder="Startdatum">
+            </div>
+
+            <div class="form-group">
+                <label for="contract-eind-datum">Einddatum (yyyy-mm-dd)</label>
+                <input type="text" class="form-control" id="contract-eind-datum" ng-model="ccCtrl.contract.eindDatum" placeholder="Einddatum">
+            </div>
+        </form>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ccCtrl.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="ccCtrl.cancel()">Cancel</button>
+    </div>

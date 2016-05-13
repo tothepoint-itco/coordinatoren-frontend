@@ -61,7 +61,7 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
                         console.log("JA!");
                         },
                         (error) => {
-                            console.log("Nee!");
+                        console.log("Nee!");
                         }
                     )
                 }

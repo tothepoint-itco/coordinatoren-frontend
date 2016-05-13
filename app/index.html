@@ -26,7 +26,7 @@
     </style>
 
 </head>
-<body>
+<body ng-controller="MainController as mCtrl">
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -42,16 +42,18 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#/planning">Home</a></li> <!-- class="active"-->
-                    <li><a href="#/planning">Planning</a></li>
-                    <li><a href="#/business-units">Business Units</a></li>
-                    <li><a href="#/bediendes">Bedienden</a></li>
-                    <li><a href="#/contracts">Contracten</a></li>
-                    <li><a href="#/opdrachten">Opdrachten</a></li>
-                    <li><a href="#/bestelbonnen">Bestelbonnen</a></li>
-                    <li><a href="#/akkoorden">Akkoorden</a></li>
-                    <li><a href="#/beheerders">Beheerder</a></li>
-                    <li><a href="#/rollen">Rollen</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/planning">Planning</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/business-units">Business Units</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/bediendes">Bedienden</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/contracts">Contracten</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/opdrachten">Opdrachten</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/bestelbonnen">Bestelbonnen</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/akkoorden">Akkoorden</a></li>
+                    <li><a ng-show ="isAuthorized()" href="#/beheerders">Beheerders</a></li>
+                    <li><a></a></li>
+                    <li><a href="#/login" ng-click = "logout()">Logout</a></li>
+                <!--    <li><a href="#/beheerders">Beheerder</a></li>
+                    <li><a href="#/rollen">Rollen</a></li> -->
                 </ul>
             </div>
         </div>
@@ -76,6 +78,9 @@
 <script src="components/version/version.js"></script>
 <script src="components/version/version-directive.js"></script>
 <script src="components/version/interpolate-filter.js"></script>
+
+<script src="controllers/main-controller.js"></script>
+
 
 <script src="controllers/business-unit-controller.js"></script>
 <script src="controllers/modals/create-business-unit-controller.js"></script>
@@ -106,7 +111,7 @@
 <script src="controllers/modals/create-akkoord-controller.js"></script>
 <script src="models/akkoord.js"></script>
 
-<script src="controllers/beheerder-controller.js"></script>
+
 <script src="controllers/modals/create-beheerder-controller.js"></script>
 <script src="models/beheerder.js"></script>
 
@@ -116,6 +121,8 @@
 <script src="models/rol.js"></script>
 
 <script src="controllers/login-controller.js"></script>
+
+<script src="controllers/user-controller.js"></script>
 <script src="controllers/modals/create-user-controller.js"></script>
 <script src="models/login.js"></script>
 <script src="models/user.js"></script>
