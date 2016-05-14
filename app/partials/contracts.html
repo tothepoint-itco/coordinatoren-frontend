@@ -15,8 +15,8 @@
         <th>Acties</th>
     </tr>
     <tr ng-repeat="contract in contractCtrl.aggregatedContracts">
-        <td>{{contract.bediende.voorNaam}} {{contract.bediende.familieNaam}}</td>
-        <td>{{contract.businessUnit.naam}}</td>
+        <td><a href="#/bediendes/{{contract.bediende.id}}">{{contract.bediende.voorNaam}} {{contract.bediende.familieNaam}}</a></td>
+        <td><a href="#/business-units/{{contract.businessUnit.id}}">{{contract.businessUnit.naam}}</a></td>
         <td>{{contract.startDatum}}</td>
         <td>{{contract.eindDatum}}</td>
         <td>
