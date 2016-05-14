@@ -12,7 +12,6 @@
         <th>Geboortedatum</th>
         <th>Telefoon nummer</th>
         <th>Acties</th>
-        <th>Wijzigen</th>
     </tr>
     <tr ng-repeat="bed in bediendeCtrl.bediendes">
         <td><a href="#/bediendes/{{bed.id}}">{{bed.voorNaam}}</a></td>
@@ -20,11 +19,8 @@
         <td>{{bed.geboorteDatum}}</td>
         <td>{{bed.telefoonNummer}}</td>
         <td>
-            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="bediendeCtrl.deleteBediende(bed.id)">
-
-        </td>
-        <td>
             <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="bediendeCtrl.editBediende(bed.id)"></span>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="bediendeCtrl.deleteBediende(bed.id)">
         </td>
     </tr>
 </table>

@@ -9,14 +9,12 @@
     <tr>
         <th>Naam</th>
         <th>Acties</th>
-        <th>Wijzigen</th>
     </tr>
     <tr ng-repeat="bu in businessCtrl.businessUnits">
         <td><a href="#/business-units/{{bu.id}}">{{bu.naam}}</a></td>
         <td>
+            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="businessCtrl.editBusinessUnit(bu.id)"></span>
             <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="businessCtrl.deleteBusinessUnit(bu.id)"></span>
-
         </td>
-        <td><span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="businessCtrl.editBusinessUnit(bu.id)"></span></td>
     </tr>
 </table>

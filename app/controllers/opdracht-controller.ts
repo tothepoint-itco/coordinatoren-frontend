@@ -1,6 +1,6 @@
 'use strict',
 
-angular.module('coordinatorentool').controller('OpdrachtController', ["OpdrachtResource", "$uibModal",
+angular.module('coordinatorentoolControllers').controller('OpdrachtController', ["OpdrachtResource", "$uibModal",
 function(Opdracht, $uibModal) {
 Opdracht.query(
   (success) => {

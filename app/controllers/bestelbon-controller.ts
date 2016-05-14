@@ -1,6 +1,6 @@
 'use strict',
 
-angular.module('coordinatorentool').controller('BestelbonController', ["BestelbonResource", "$uibModal",
+angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "$uibModal",
 function(Bestelbon, $uibModal) {
 Bestelbon.query(
   (success) => {

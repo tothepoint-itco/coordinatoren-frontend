@@ -2,6 +2,7 @@
 
 // Declare app level module which depends on views, and components
 var coordinatorentool = angular.module('coordinatorentool', [
+    'coordinatorentoolConfigs',
     'coordinatorentoolControllers',
     'coordinatorentoolServices',
     'coordinatorentoolModels',
