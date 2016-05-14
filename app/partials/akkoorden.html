@@ -17,8 +17,8 @@
     </tr>
     <tr ng-repeat="akkoord in akkoordCtrl.akkoorden">
         <td><a href="#/akkoorden/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
-        <td>{{akkoord.opdracht}}</td>
-        <td>{{akkoord.consultant}}</td>
+        <td>{{akkoord.opdracht.klant}}</td>
+        <td><a href="#/bediendes/{{akkoord.consultant.id}}">{{akkoord.consultant.voorNaam}} {{akkoord.consultant.familieNaam}}</a></td>
         <td>{{akkoord.bezettingsGraad}}</td>
         <td>{{akkoord.informeelStartDatum}}</td>
         <td>{{akkoord.informeelEindDatum}}</td>

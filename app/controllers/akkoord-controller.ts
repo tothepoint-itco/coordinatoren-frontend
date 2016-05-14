@@ -10,22 +10,7 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
             this.aggregatedAkkoorden = this.akkoorden;
 
             this.aggregatedAkkoorden.map((akkoord) => {
-
-                Consultant.get(
-                    {id: akkoord.consultantId},
-                    (consultant) => {
-                        console.log("consultant %o",consultant);
-                        akkoord.consultant = consultant.voorNaam+" "+consultant.familieNaam  ;
-                    }
-                );
-
-                Opdracht.get(
-                    {id: akkoord.opdrachtId},
-                    (opdracht) => {
-                        console.log("opdracht %o",opdracht);
-                        akkoord.opdracht = opdracht.klant;
-                    }
-                );
+                aggregateAkkoord(akkoord);
 
             })
         }
@@ -106,8 +91,6 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
                 Akkoord.save(
                     akkoord,
                     (successResult) => {
-                        console.log("Akkoord was saved! Result is %o", successResult);
-
                         aggregateAkkoord(successResult);
                         this.aggregatedAkkoorden.push(successResult);
                     },
