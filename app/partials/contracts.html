@@ -13,8 +13,6 @@
         <th>Begindatum</th>
         <th>Einddatum</th>
         <th>Acties</th>
-        <th>Wijzigen</th>
-
     </tr>
     <tr ng-repeat="contract in contractCtrl.aggregatedContracts">
         <td>{{contract.bediende.voorNaam}} {{contract.bediende.familieNaam}}</td>
@@ -22,10 +20,8 @@
         <td>{{contract.startDatum}}</td>
         <td>{{contract.eindDatum}}</td>
         <td>
-            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="contractCtrl.deleteContract(contract.id)"></span>
-        </td>
-        <td>
             <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="contractCtrl.editContract(contract.id)"></span>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="contractCtrl.deleteContract(contract.id)"></span>
         </td>
     </tr>
 </table>
