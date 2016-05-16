@@ -7,12 +7,11 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
     Akkoord.query(
         (success) => {
             this.akkoorden = success;
-            this.aggregatedAkkoorden = this.akkoorden;
 
-            this.aggregatedAkkoorden.map((akkoord) => {
+            this.akkoorden.map((akkoord) => {
                 aggregateAkkoord(akkoord);
 
-            })
+            });
         }
     );
 
@@ -34,18 +33,19 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
 
     this.aggregatedAkkoorden = [];
 
-    var createAkkoordModal = {
-        templateUrl: "partials/modals/create-akkoord.html",
-        controller: "CreateAkkoordController",
-        controllerAs: "cakkCtrl",
-        keyboard: false
-    };
-    var editAkkoordModal = {
-        templateUrl: "partials/modals/edit-akkoord.html",
-        controller: "CreateAkkoordController",
-        controllerAs: "cakkCtrl",
-        keyboard: false
-    };
+    this.createAkkoordModal = (updateMode, akkoord) => {
+        return {
+            templateUrl: "partials/modals/create-akkoord.html",
+            controller: "CreateAkkoordController",
+            controllerAs: "cakkCtrl",
+            keyboard: false,
+            resolve: {
+                updateMode: () => updateMode,
+                akkoord: () => akkoord
+            }
+        }
+    }
+
 
     this.createConfirmModal = (title, body) => {
         return {
@@ -85,9 +85,8 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
     }
 
     this.createNewAkkoord = () => {
-        $uibModal.open(createAkkoordModal).result.then(
+        $uibModal.open(this.createAkkoordModal(false, null)).result.then(
             (akkoord) => {
-              console.log("Akkoord voor saving: %o", akkoord);
                 Akkoord.save(
                     akkoord,
                     (successResult) => {
@@ -104,18 +103,14 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
             }
         );
     };
-    this.editAkkoord = (akkoordId) => {
-        $uibModal.open(editAkkoordModal).result.then(
+
+    this.editAkkoord = (akkoord) => {
+        $uibModal.open(this.createAkkoordModal(true, akkoord)).result.then(
             (akkoord) => {
-              console.log("Akkoord voor saving: %o", akkoord);
-                Akkoord.UPDATE({id: akkoordId},
+                Akkoord.UPDATE({id: akkoord.id},
                     akkoord,
                     (successResult) => {
-                        console.log("Akkoord was saved! Result is %o", successResult);
-
                         aggregateAkkoord(successResult);
-                        this.akkoorden.splice(index, 1);
-                        this.aggregatedAkkoorden.push(successResult);
                     },
                     (errorResult) => {
                         console.log("Saving akkoord failed! Result was %o", errorResult);

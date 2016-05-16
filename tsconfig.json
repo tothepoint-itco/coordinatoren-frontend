@@ -46,6 +46,7 @@
         "app/controllers/modals/create-contract-controller.ts",
         "app/controllers/modals/create-opdracht-controller.ts",
         "app/controllers/modals/create-rol-controller.ts",
+        "app/controllers/modals/create-user-controller.ts",
         "app/controllers/opdracht-controller.ts",
         "app/controllers/planning-controller.ts",
         "app/controllers/rol-controller.ts",
