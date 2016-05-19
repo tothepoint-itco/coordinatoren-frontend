@@ -2,8 +2,8 @@
 
 
 angular.module('coordinatorentoolControllers').controller("AkkoordController",
-["AkkoordResource", "ConsultantResource", "OpdrachtResource", "$uibModal",
-function(Akkoord, Consultant, Opdracht, $uibModal) {
+["AkkoordResource", "ConsultantResource", "OpdrachtResource", "$uibModal", "$scope",
+function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
     Akkoord.query(
         (success) => {
             this.akkoorden = success;
@@ -41,7 +41,7 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
             keyboard: false,
             resolve: {
                 updateMode: () => updateMode,
-                akkoord: () => akkoord
+                akkoord: () => angular.copy(akkoord)
             }
         }
     }
@@ -104,12 +104,19 @@ function(Akkoord, Consultant, Opdracht, $uibModal) {
         );
     };
 
-    this.editAkkoord = (akkoord) => {
-        $uibModal.open(this.createAkkoordModal(true, akkoord)).result.then(
+    this.editAkkoord = (originalAkkoord) => {
+        $uibModal.open(this.createAkkoordModal(true, originalAkkoord)).result.then(
             (akkoord) => {
                 Akkoord.UPDATE({id: akkoord.id},
                     akkoord,
                     (successResult) => {
+                        this.akkoorden.filter((akk, i) => {
+                            if (akk.id == originalAkkoord.id) {
+                                this.akkoorden[i] = successResult;
+                            }
+                            return akk.id == originalAkkoord.id;
+                        });
+
                         aggregateAkkoord(successResult);
                     },
                     (errorResult) => {

@@ -1,5 +1,8 @@
 <div class="modal-header">
-    <h3 class="modal-title">Nieuwe akkoord aanmaken</h3>
+    <h3 class="modal-title">
+        <span ng-hide="cakkCtrl.updateMode">Nieuw akkoord aanmaken</span>
+        <span ng-show="cakkCtrl.updateMode">Akkoord bijwerken</span>
+    </h3>
 </div>
 <div class="modal-body">
     <form>
@@ -36,12 +39,12 @@
 
         <div class="form-group">
             <label for="akkoord-startdatum">Begindatum (yyyy-mm-dd)</label>
-            <input type="text" class="form-control" id="akkoord-informeelstartdatum" ng-model="cakkCtrl.akkoord.informeelStartDatum" placeholder="Begin datum">
+            <input type="text" class="form-control" id="akkoord-informeelstartdatum" ng-model="cakkCtrl.akkoord.informeelStartDatum" placeholder="Begindatum">
         </div>
 
         <div class="form-group">
             <label for="akkoord-einddatum">Einddatum (yyyy-mm-dd)</label>
-            <input type="text" class="form-control" id="akkoord-informeeleinddatum" ng-model="cakkCtrl.akkoord.informeelEindDatum" placeholder="Eind datum">
+            <input type="text" class="form-control" id="akkoord-informeeleinddatum" ng-model="cakkCtrl.akkoord.informeelEindDatum" placeholder="Einddatum">
         </div>
     </form>
 </div

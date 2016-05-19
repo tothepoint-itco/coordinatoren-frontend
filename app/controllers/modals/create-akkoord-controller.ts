@@ -4,7 +4,7 @@ angular.module('coordinatorentoolControllers').controller("CreateAkkoordControll
 ['$uibModalInstance', "updateMode", "akkoord", "ConsultantResource","OpdrachtResource",
 function($uibModalInstance, updateMode, akkoord, Consultant, Opdracht){
 
-    if (akkoord != null || akkoord != undefined) {
+    if ((akkoord != null || akkoord != undefined) && updateMode == true) {
         this.akkoord = akkoord;
     } else {
         this.akkoord = {

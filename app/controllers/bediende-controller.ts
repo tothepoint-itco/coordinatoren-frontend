@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("BediendeController", ["BediendeResource", "$uibModal", "ContractResource",
-function(Bediende, $uibModal, Contract) {
+angular.module('coordinatorentoolControllers').controller("BediendeController", ["BediendeResource", "$uibModal",
+function(Bediende, $uibModal) {
     Bediende.query(
         (success) => {
             console.log("Bediende query %o", success);
@@ -10,20 +10,18 @@ function(Bediende, $uibModal, Contract) {
         }
     );
 
-    var createBediendeModal = {
-        templateUrl: "partials/modals/create-bediende.html",
-        controller: "CreateBediendeController",
-        controllerAs: "cbedCtrl",
-        keyboard: false
-    };
-
-
-    var editBediendeModal = {
-        templateUrl: "partials/modals/edit-bediende.html",
-        controller: "CreateBediendeController",
-        controllerAs: "cbedCtrl",
-        keyboard: false
-    };
+    this.createBediendeModal = (updateMode, bediende) => {
+        return {
+            templateUrl: "partials/modals/create-bediende.html",
+            controller: "CreateBediendeController",
+            controllerAs: "cbedCtrl",
+            keyboard: false,
+            resolve: {
+                updateMode: () => updateMode,
+                bediende: () => angular.copy(bediende)
+            }
+        }
+    }
 
     this.createConfirmModal = (title, body) => {
         return {
@@ -63,33 +61,18 @@ function(Bediende, $uibModal, Contract) {
     }
 
     this.createNewBediende = () => {
-        $uibModal.open(createBediendeModal).result.then(
-            (body) => {
+        $uibModal.open(this.createBediendeModal(false, null)).result.then(
+            (bediende) => {
                 Bediende.save(
-                    body.bediende,
+                    bediende,
                     (successResult) => {
                         console.log("Bediende was saved! Result is %o", successResult);
                         this.bediendes.push(successResult);
-                        body.contract.bediendeId = successResult.id;
-                        //console.log("Bedie %o",body.contract)
-                        Contract.save(
-                            body.contract,
-                            (successResult) => {
-                                console.log("Contract was saved! Result is %o", successResult);
-
-                                //aggregateContract(successResult);
-
-                            },
-                            (errorResult) => {
-                                console.log("Saving Contract failed! Result was %o", errorResult);
-                            }
-                        );
                     },
                     (errorResult) => {
                         console.log("Saving Bediende failed! Result was %o", errorResult);
                     }
                 );
-
             },
             () => {
                 console.log("modal closed!");
@@ -97,21 +80,19 @@ function(Bediende, $uibModal, Contract) {
         );
     };
 
-    this.editBediende = (bediendeId) => {
-        var index = undefined;
-        var bediendeToEdit = this.bediendes.filter((bediende, i) => {
-            if (bediende.id == bediendeId) { index = i}
-            return bediende.id == bediendeId;
-        });
-        $uibModal.open(editBediendeModal).result.then(
-            (body) => {
-                Bediende.UPDATE({id: bediendeToEdit[0].id},
-                    body.bediende,
+    this.editBediende = (originalBediende) => {
+        $uibModal.open(this.createBediendeModal(true, originalBediende)).result.then(
+            (bediende) => {
+                Bediende.UPDATE({id: originalBediende.id},
+                    bediende,
                     (successResult) => {
                         console.log("Bediende was edited! Result is %o", successResult);
-                        body.contract.bediendeId = successResult.id;
-                        this.bediendes.splice(index, 1);
-                        this.bediendes.push(successResult);
+                        this.bediendes.filter((bedi, i) => {
+                            if (bedi.id == originalBediende.id) {
+                                this.bediendes[i] = successResult;
+                            }
+                            return bedi.id == originalBediende.id;
+                        });
                     },
                     (errorResult) => {
                         console.log("Saving Bediende failed! Result was %o", errorResult);

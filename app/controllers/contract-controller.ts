@@ -47,19 +47,18 @@ function(Contract, Bediende, BusinessUnit, $uibModal) {
 
     this.aggregatedContracts = [];
 
-    var createContractModal = {
-        templateUrl: "partials/modals/create-contract.html",
-        controller: "CreateContractController",
-        controllerAs: "ccCtrl",
-        keyboard: false
-    };
-
-    var editContractModal = {
-        templateUrl: "partials/modals/edit-contract.html",
-        controller: "CreateContractController",
-        controllerAs: "ccCtrl",
-        keyboard: false
-    };
+    this.createContractModal = (updateMode, contract) => {
+        return {
+            templateUrl: "partials/modals/create-contract.html",
+            controller: "CreateContractController",
+            controllerAs: "ccCtrl",
+            keyboard: false,
+            resolve: {
+                updateMode: () => updateMode,
+                contract: () => angular.copy(contract)
+            }
+        }
+    }
 
     this.createConfirmModal = (title, body) => {
         return {
@@ -99,7 +98,7 @@ function(Contract, Bediende, BusinessUnit, $uibModal) {
     }
 
     this.createNewContract = () => {
-        $uibModal.open(createContractModal).result.then(
+        $uibModal.open(this.createContractModal(false, null)).result.then(
             (contract) => {
 
                 Contract.save(
@@ -121,23 +120,22 @@ function(Contract, Bediende, BusinessUnit, $uibModal) {
         );
     };
 
-    this.editContract = (contractId) => {
-        var index = undefined;
-        var contractToEdit = this.aggregatedContracts.filter((contract, i) => {
-            if (contract.id == contractId) { index = i}
-            return contract.id == contractId;
-        });
-        $uibModal.open(editContractModal).result.then(
+    this.editContract = (originalContract) => {
+        $uibModal.open(this.createContractModal(true, originalContract)).result.then(
             (contract) => {
-
-                Contract.UPDATE({id: contractId},
+                Contract.UPDATE({id: originalContract.id},
                     contract,
                     (successResult) => {
                         console.log("Contract was edited! Result is %o", successResult);
 
                         aggregateContract(successResult);
-                        this.contracts.splice(index, 1);
-                        this.aggregatedContracts.push(successResult);
+
+                        this.contracts.filter((contr, i) => {
+                            if (contr.id == originalContract.id) {
+                                this.contracts[i] = successResult;
+                            }
+                            return contr.id == originalContract.id;
+                        });
                     },
                     (errorResult) => {
                         console.log("Editing Contract failed! Result was %o", errorResult);

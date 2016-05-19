@@ -9,18 +9,18 @@ function(BusinessUnit, $uibModal) {
         }
     );
 
-    var createBusinessUnitModal = {
-        templateUrl: "partials/modals/create-business-unit.html",
-        controller: "CreateBusinessUnitController",
-        controllerAs: "cbuCtrl",
-        keyboard: false
-    };
-    var editBusinessUnitModal = {
-        templateUrl: "partials/modals/edit-business-unit.html",
-        controller: "CreateBusinessUnitController",
-        controllerAs: "cbuCtrl",
-        keyboard: false
-    };
+    this.createBusinessUnitModal = (updateMode, businessUnit) => {
+        return {
+            templateUrl: "partials/modals/create-business-unit.html",
+            controller: "CreateBusinessUnitController",
+            controllerAs: "cbuCtrl",
+            keyboard: false,
+            resolve: {
+                updateMode: () => updateMode,
+                businessUnit: () => angular.copy(businessUnit)
+            }
+        }
+    }
 
     this.createConfirmModal = (title, body) => {
         return {
@@ -60,7 +60,7 @@ function(BusinessUnit, $uibModal) {
     }
 
     this.createNewBusinessUnit = () => {
-        $uibModal.open(createBusinessUnitModal).result.then(
+        $uibModal.open(this.createBusinessUnitModal(false, null)).result.then(
             (businessUnit) => {
                 BusinessUnit.save(
                     businessUnit,
@@ -79,21 +79,21 @@ function(BusinessUnit, $uibModal) {
         );
     };
 
-     this.editBusinessUnit = (businessUnitId) => {
-        var index = undefined;
-        var businessUnitToEdit = this.businessUnits.filter((businessUnit, i) => {
-            if (businessUnit.id == businessUnitId) { index = i}
-            return businessUnit.id == businessUnitId;
-        });
-        $uibModal.open(editBusinessUnitModal).result.then(
+     this.editBusinessUnit = (originalBusinessUnit) => {
+        $uibModal.open(this.createBusinessUnitModal(true, originalBusinessUnit)).result.then(
             (businessUnit) => {
                 BusinessUnit.UPDATE(
-                    {id: businessUnitToEdit[0].id},
+                    {id: originalBusinessUnit.id},
                     businessUnit,
                     (successResult) => {
                         console.log("BusinessUnit was edited! Result is %o", successResult);
-                        this.businessUnits.splice(index, 1);
-                        this.businessUnits.push(successResult);
+
+                        this.businessUnits.filter((akk, i) => {
+                            if (akk.id == originalBusinessUnit.id) {
+                                this.businessUnits[i] = successResult;
+                            }
+                            return akk.id == originalBusinessUnit.id;
+                        });
 
                     },
                     (errorResult) => {

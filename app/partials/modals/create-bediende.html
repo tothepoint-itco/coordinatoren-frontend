@@ -1,5 +1,8 @@
 <div class="modal-header">
-    <h3 class="modal-title">Nieuwe bediende aanmaken</h3>
+    <h3 class="modal-title">
+        <span ng-hide="cbedCtrl.updateMode">Nieuwe bediende aanmaken</span>
+        <span ng-show="cbedCtrl.updateMode">Bediende bijwerken</span>
+    </h3>
 </div>
 <div class="modal-body">
 
@@ -24,29 +27,6 @@
         </div>
 
     </form>
-    <form>
-
-        <div class="form-group">
-            <div class="btn-group" uib-dropdown is-open="status.isopen2">
-                <button id="contract-business-unit" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                    {{ccCtrl.selectedBusinessUnit.naam || "Kies business unit"}}<span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="contract-business-unit">
-                    <li role="menuitem" ng-repeat="bu in cbedCtrl.businessUnits"><a ng-click="cbedCtrl.selectBusinessUnit(bu)" href="">{{bu.naam}}</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="contract-start-datum">Contract startdatum (yyyy-mm-dd)</label>
-                <input type="text" class="form-control" id="contract-start-datum" ng-model="cbedCtrl.contract.startDatum" placeholder="Startdatum">
-            </div>
-
-            <div class="form-group">
-                <label for="contract-eind-datum">Contract einddatum (yyyy-mm-dd)</label>
-                <input type="text" class="form-control" id="contract-eind-datum" ng-model="cbedCtrl.contract.eindDatum" placeholder="Einddatum">
-            </div>
-        </form>
 </div>
 
 <div class="modal-footer">
