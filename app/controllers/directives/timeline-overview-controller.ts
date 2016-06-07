@@ -57,7 +57,7 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
                 dataSetArray.push({
                     id: "A" + akkoordAggregated.akkoord.id,
                     group: aggregatedConsultant.consultant.id,
-                    content: akkoordAggregated.opdracht.klant,
+                    content: akkoordAggregated.opdracht.klant + (akkoordAggregated.akkoord.bezettingsGraad != undefined ? " (" + akkoordAggregated.akkoord.bezettingsGraad + "%)" : "") ,
                     subgroup: akkoordAggregated.akkoord.id,
                     start: akkoordAggregated.akkoord.informeelStartDatum,
                     end: akkoordAggregated.akkoord.informeelEindDatum,
