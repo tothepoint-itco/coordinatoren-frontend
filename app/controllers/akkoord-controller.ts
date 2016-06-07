@@ -91,7 +91,7 @@ function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
                     akkoord,
                     (successResult) => {
                         aggregateAkkoord(successResult);
-                        this.aggregatedAkkoorden.push(successResult);
+                        this.akkoorden.push(successResult);
                     },
                     (errorResult) => {
                         console.log("Saving akkoord failed! Result was %o", errorResult);
