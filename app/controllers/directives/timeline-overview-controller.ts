@@ -59,8 +59,8 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
                     group: aggregatedConsultant.consultant.id,
                     content: akkoordAggregated.opdracht.klant + (akkoordAggregated.akkoord.bezettingsGraad != undefined ? " (" + akkoordAggregated.akkoord.bezettingsGraad + "%)" : "") ,
                     subgroup: akkoordAggregated.akkoord.id,
-                    start: akkoordAggregated.akkoord.informeelStartDatum,
-                    end: akkoordAggregated.akkoord.informeelEindDatum,
+                    start: moment(akkoordAggregated.akkoord.informeelStartDatum, "DD/MM/YYYY"),
+                    end: moment(akkoordAggregated.akkoord.informeelEindDatum, "DD/MM/YYYY"),
                     style: "background-color: #d5ddf7",
                     title: "Akkoord voor: "+ akkoordAggregated.opdracht.klant +"\nLoopt informeel van: " + moment(akkoordAggregated.akkoord.informeelStartDatum).format("D MMM") + " tot " + moment(akkoordAggregated.akkoord.informeelEindDatum).format("D MMM")
                 });
@@ -69,8 +69,8 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
                     dataSetArray.push({
                         id: "B" + bestelbon.id,
                         group: aggregatedConsultant.consultant.id,
-                        start: bestelbon.startDatum,
-                        end: bestelbon.eindDatum,
+                        start: moment(bestelbon.startDatum, "DD/MM/YYYY"),
+                        end: moment(bestelbon.eindDatum, "DD/MM/YYYY"),
                         content: "<p></p>",
                         style: "background-color: #20bd00; opacity: 0.3",
                         title: "Bestelbon voor: "+ akkoordAggregated.opdracht.klant +"\nLoopt van: " + moment(bestelbon.startDatum).format("D MMM") + " tot " + moment(bestelbon.eindDatum).format("D MMM")
