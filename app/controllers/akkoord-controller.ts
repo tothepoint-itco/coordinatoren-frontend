@@ -62,7 +62,7 @@ function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
 
     this.deleteAkkoord = (akkoordId) => {
         var index = undefined;
-        var akkoordToDelete = this.aggregatedAkkoorden.filter((akkoord, i) => {
+        var akkoordToDelete = this.akkoorden.filter((akkoord, i) => {
             if (akkoord.id == akkoordId) { index = i}
             return akkoord.id == akkoordId;
         });
