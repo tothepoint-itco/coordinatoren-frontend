@@ -50,6 +50,8 @@ gulp.task('config:docker', function() {
 gulp.task('config', function() {
     if (environments.production()) {
         gulp.start('config:prd');
+    } else if (env_cronos()) {
+        gulp.start('config:prd-cronos');
     } else if (env_docker()) {
         gulp.start('config:docker');
     } else {

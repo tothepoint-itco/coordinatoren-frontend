@@ -33,6 +33,7 @@
         "app/controllers/business-unit-controller.ts",
         "app/controllers/contract-controller.ts",
         "app/controllers/directives/timeline-controller.ts",
+        "app/controllers/directives/timeline-overview-controller.ts",
         "app/controllers/login-controller.ts",
         "app/controllers/main-controller.ts",
         "app/controllers/modals/akkoord-modal-controller.ts",
