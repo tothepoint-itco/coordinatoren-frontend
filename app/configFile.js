@@ -1,2 +1,1 @@
-angular.module("coordinatorentoolConfigs", [])
-.constant("EnvironmentConfig", {"api":"http://192.168.99.100:8765"});
+angular.module("coordinatorentoolConfigs",[]).constant("EnvironmentConfig",{api:"http://ec2-52-58-119-153.eu-central-1.compute.amazonaws.com:8080"});
