@@ -3,6 +3,7 @@ var gulpNgConfig = require('gulp-ng-config');
 
 var environments = require('gulp-environments');
 var env_docker = environments.make("docker");
+var env_cronos = environments.make("prd-cronos");
 
 var ts = require('gulp-typescript');
 ts.reporter.nullReporter()
@@ -26,6 +27,14 @@ gulp.task('config:prd', function() {
     gulp.src('configFile.json')
     .pipe(gulpNgConfig('coordinatorentoolConfigs', {
         environment: 'production'
+    }))
+    .pipe(gulp.dest('./app'));
+});
+
+gulp.task('config:prd-cronos', function() {
+    gulp.src('configFile.json')
+    .pipe(gulpNgConfig('coordinatorentoolConfigs', {
+        environment: 'prd-cronos'
     }))
     .pipe(gulp.dest('./app'));
 });
