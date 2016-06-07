@@ -2,57 +2,6 @@
 
 <p>Onderstaande planningen zijn gekend in het systeem:</p>
 
-<div >
-    <table class="table table-hover" >
-        <tr>
-            <th class="col-md-2" ng-click="order('consultant.familieNaam')">Naam
-                <span ng-show="predicate === '-consultant.familieNaam'" ng-class="{reverse:reverse}"></span>
-            </th>
-            <th class="col-md-10" ng-click="orderTimeline('consultant.som')">Timeline</th>
-        </tr>
-        <tr ng-repeat="aggregatedConsultant in planningCtrl.aggregatedConsultants">
-            <td>{{aggregatedConsultant.consultant.voorNaam}} {{aggregatedConsultant.consultant.familieNaam}}</td>
-            <td>
-                <div id="{{aggregatedConsultant.consultant.id}}" >
-                    <timeline data="aggregatedConsultant"></timeline>
-                </div>
-            </td>
-        </tr>
-
-    <br />
-
-    </table>
-
-
-
-
-
+<div>
+    <timeline-overview data="planningCtrl.aggregatedConsultants"></timeline-overview>
 </div>
-<!--
-<th>Contract</th>
-<th>Business unit </th>
-<th>Project code </th>
-<th>Klant</th>
-
-
-<td>Van {{aggregatedConsultant.contract.startDatum}} tot {{aggregatedConsultant.contract.eindDatum}}</td>
-<td>{{aggregatedConsultant.businessUnit.naam}}</td>
-<td>
-    <table class="table">
-        <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-            <td>{{akkoord.akkoord.projectCode}}</td>
-        </tr>
-    </table>
-</td>
-<td>
-    <table class="table">
-        <tr ng-repeat="akkoord in aggregatedConsultant.akkoorden">
-            <td>{{akkoord.opdracht.klant}}</td>
-        </tr>
-    </table>
-</td>
-
-
-
-
--->
