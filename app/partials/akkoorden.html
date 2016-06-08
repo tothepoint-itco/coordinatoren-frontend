@@ -7,16 +7,18 @@
 
 <table class="table table-hover">
     <tr>
-        <th>Consultant</th>
+        <th ng-click="akkoordCtrl.sortBy('consultant.voorNaam')">Consultant voornaam</th>
+        <th ng-click="akkoordCtrl.sortBy('consultant.familieNaam')">Consultant familienaam </th>
         <th>Project code</th>
         <th>Opdracht</th>
         <th>Bezetting</th>
-        <th>Start datum</th>
+        <th ng-click="akkoordCtrl.sortBy('date')">Start datum</th>
         <th>Eind datum</th>
         <th>Acties</th>
     </tr>
-    <tr ng-repeat="akkoord in akkoordCtrl.akkoorden">
-        <td><a href="#/bediendes/{{akkoord.consultant.id}}">{{akkoord.consultant.voorNaam}} {{akkoord.consultant.familieNaam}}</a></td>
+    <tr ng-repeat="akkoord in akkoordCtrl.akkoorden | orderBy:propertyName:reverse">
+        <td><a href="#/bediendes/{{akkoord.consultant.id}}">{{akkoord.consultant.voorNaam}}</a></td>
+        <td><a href="#/bediendes/{{akkoord.consultant.id}}">{{akkoord.consultant.familieNaam}}</a></td>
         <td><a href="#/akkoorden/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
         <td>{{akkoord.opdracht.klant}} - {{akkoord.opdracht.locatie}} - {{akkoord.opdracht.info}}</td>
         <td>{{akkoord.bezettingsGraad}}</td>

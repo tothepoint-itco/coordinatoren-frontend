@@ -4,6 +4,14 @@
 angular.module('coordinatorentoolControllers').controller("AkkoordController",
 ["AkkoordResource", "ConsultantResource", "OpdrachtResource", "$uibModal", "$scope",
 function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
+
+    $scope.propertyName = 'voorNaam';
+    this.sortBy = (propertyName) =>{
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+        console.log(propertyName);
+        //this.opdrachten = orderBy(this.opdrachten, propertyName)
+    }
     Akkoord.query(
         (success) => {
             this.akkoorden = success;
