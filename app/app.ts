@@ -14,6 +14,8 @@ var coordinatorentool = angular.module('coordinatorentool', [
     'ui.bootstrap.datetimepicker'
 ]);
 
+moment.locale("nl");
+
 angular.module('coordinatorentoolControllers', []);
 angular.module('coordinatorentoolServices', []);
 angular.module('coordinatorentoolModels', []);
