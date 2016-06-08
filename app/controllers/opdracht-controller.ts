@@ -39,7 +39,7 @@ function(Opdracht, $uibModal) {
             if(opdracht.id == opdrachtId) {index = i}
             return opdracht.id == opdrachtId;
         });
-        $uibModal.open(this.createConfirmModal("Opdracht verwijderen","Ben je zeker dat je opdracht"+ opdrachtToDelete[0].projectCode+ "wilt verwijderen?")).result.then(
+        $uibModal.open(this.createConfirmModal("Opdracht verwijderen","Ben je zeker dat je de opdracht bij "+ opdrachtToDelete[0].klant+ " wil verwijderen?")).result.then(
             (success) => {
                 Opdracht.delete(
                     {id: opdrachtToDelete[0].id},

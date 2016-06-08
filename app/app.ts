@@ -30,6 +30,17 @@ coordinatorentool.directive("timeline", function() {
     };
 });
 
+coordinatorentool.directive("timelineOverview", function() {
+    return {
+        restrict: "E",
+        controller: "TimelineOverviewController",
+        controllerAs: "timeOCtrl",
+        scope: {
+            data: '='
+        },
+        templateUrl: "partials/timeline-overview-directive.html"
+    };
+});
 
 coordinatorentool.config(['$routeProvider','$httpProvider','jwtInterceptorProvider', function($routeProvider, $httpProvider, jwtInterceptorProvider) {
     $routeProvider
