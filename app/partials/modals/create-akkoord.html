@@ -37,15 +37,40 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="akkoord-startdatum">Begindatum (dd/mm/yyyy)</label>
             <input type="text" class="form-control" id="akkoord-informeelstartdatum" ng-model="cakkCtrl.akkoord.informeelStartDatum" placeholder="Begindatum">
-        </div>
-
-        <div class="form-group">
+        </div> -->
+        <!-- <div class="form-group">
             <label for="akkoord-einddatum">Einddatum (dd/mm/yyyy)</label>
             <input type="text" class="form-control" id="akkoord-informeeleinddatum" ng-model="cakkCtrl.akkoord.informeelEindDatum" placeholder="Einddatum">
+        </div> -->
+        <div class="dropdown">
+            <label for="akkoord-startdatum">Begindatum (dd/mm/yyyy)</label>
+            <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown">
+                <div class="input-group">
+                    <input  type="text" class="form-control" data-ng-model="cakkCtrl.akkoord.informeelStartDatum">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="cakkCtrl.akkoord.informeelStartDatum" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day', minView:'day', modelType: 'DD/MM/YYYY'}"/>
+            </ul>
         </div>
+        <div class="dropdown">
+            <label for="akkoord-startdatum">Einddatum (dd/mm/yyyy)</label>
+            <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown">
+                <div class="input-group">
+                    <input  type="text" class="form-control" data-ng-model="cakkCtrl.akkoord.informeelEindDatum">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                </div>
+            </a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                <datetimepicker data-ng-model="cakkCtrl.akkoord.informeelEindDatum" data-datetimepicker-config="{ dropdownSelector: '#dropdown2', startView:'day', minView:'day', modelType: 'DD/MM/YYYY'}"/>
+            </ul>
+        </div>
+
+
     </form>
 </div
 
