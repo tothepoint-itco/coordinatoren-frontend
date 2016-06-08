@@ -10,7 +10,8 @@ var coordinatorentool = angular.module('coordinatorentool', [
     'angular-jwt',
     'ngRoute',
     'ngResource',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.bootstrap.datetimepicker'
 ]);
 
 angular.module('coordinatorentoolControllers', []);
