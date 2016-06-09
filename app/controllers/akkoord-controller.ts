@@ -24,6 +24,10 @@ function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
         }
     );
 
+    this.dateSort = (akkoord) => {
+        return new Date(moment(akkoord.informeelStartDatum));
+    }
+
     var aggregateAkkoord = (akkoord) => {
         Consultant.get(
             {id: akkoord.consultantId},
