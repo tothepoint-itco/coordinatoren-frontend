@@ -9,6 +9,7 @@ function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
     this.sortBy = (propertyName) =>{
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
+        //$scope.comparator = comparator;
         console.log(propertyName);
         //this.opdrachten = orderBy(this.opdrachten, propertyName)
     }
