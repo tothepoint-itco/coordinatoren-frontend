@@ -15,7 +15,7 @@
         <th>Eind datum</th>
         <th>Acties</th>
     </tr>
-    <tr ng-repeat="akkoord in akkoordCtrl.akkoorden | orderBy:['consultant.voorNaam', 'consultant.familieNaam'] :reverse">
+    <tr ng-repeat="akkoord in akkoordCtrl.akkoorden | orderBy:[propertyName, 'consultant.familieNaam'] :reverse">
         <td><a href="#/bediendes/{{akkoord.consultant.id}}">{{akkoord.consultant.voorNaam}} {{akkoord.consultant.familieNaam}}</a></td>
         <td><a href="#/akkoorden/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
         <td>{{akkoord.opdracht.klant}} - {{akkoord.opdracht.locatie}} - {{akkoord.opdracht.info}}</td>
