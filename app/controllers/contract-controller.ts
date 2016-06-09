@@ -2,8 +2,15 @@
 
 
 angular.module('coordinatorentoolControllers').controller("ContractController",
-["ContractResource", "BediendeResource", "BusinessUnitResource", "$uibModal",
-function(Contract, Bediende, BusinessUnit, $uibModal) {
+["ContractResource", "BediendeResource", "BusinessUnitResource", "$uibModal","$scope",
+function(Contract, Bediende, BusinessUnit, $uibModal, $scope) {
+    $scope.propertyName = 'voorNaam';
+    this.sortBy = (propertyName, secondPropertyName) =>{
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+        $scope.secondPropertyName = secondPropertyName;
+        //this.opdrachten = orderBy(this.opdrachten, propertyName)
+    }
     Contract.query(
         (success) => {
             this.contracts = success;
