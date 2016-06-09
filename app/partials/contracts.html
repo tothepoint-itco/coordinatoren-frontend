@@ -13,14 +13,14 @@
         <th>Einddatum</th>
         <th>Acties</th>
     </tr>
-    <tr ng-repeat="contract in contractCtrl.aggregatedContracts">
-        <td><a href="#/bediendes/{{contract.bediende.id}}">{{contract.bediende.voorNaam}} {{contract.bediende.familieNaam}}</a></td>
-        <td><a href="#/business-units/{{contract.businessUnit.id}}">{{contract.businessUnit.naam}}</a></td>
-        <td>{{contract.startDatum}}</td>
-        <td>{{contract.eindDatum}}</td>
+    <tr ng-repeat="aggregatedContract in contractCtrl.aggregatedContracts">
+        <td><a href="#/bediendes/{{aggregatedContract.bediende.id}}">{{aggregatedContract.bediende.voorNaam}} {{aggregatedContract.bediende.familieNaam}}</a></td>
+        <td><a href="#/business-units/{{aggregatedContract.contract.businessUnit.id}}">{{aggregatedContract.contract.businessUnit.naam}}</a></td>
+        <td>{{aggregatedContract.contract.startDatum}}</td>
+        <td>{{aggregatedContract.contract.eindDatum}}</td>
         <td>
-            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="contractCtrl.editContract(contract)"></span>
-            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="contractCtrl.deleteContract(contract.id)"></span>
+            <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="contractCtrl.editContract(aggregatedContract.contract)"></span>
+            <span style="cursor: pointer" class="glyphicon glyphicon-trash" href="" ng-click="contractCtrl.deleteContract(aggregatedContract.contract.id)"></span>
         </td>
     </tr>
 </table>

@@ -59,6 +59,7 @@
         "app/models/business-unit.ts",
         "app/models/consultant-aggregated.ts",
         "app/models/consultant.ts",
+        "app/models/contract-aggregated.ts",
         "app/models/contract.ts",
         "app/models/login.ts",
         "app/models/opdracht.ts",
