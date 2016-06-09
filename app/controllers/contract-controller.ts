@@ -2,8 +2,8 @@
 
 
 angular.module('coordinatorentoolControllers').controller("ContractController",
-["ContractResource", "BediendeResource", "BusinessUnitResource", "$uibModal","$scope",
-function(Contract, Bediende, BusinessUnit, $uibModal, $scope) {
+["ContractResource", "BediendeResource","ContractAggregatedResource", "BusinessUnitResource", "$uibModal","$scope",
+function(Contract, Bediende, ContractAggregatedResource, BusinessUnit, $uibModal, $scope) {
     $scope.propertyName = 'voorNaam';
     this.sortBy = (propertyName, secondPropertyName) =>{
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
@@ -13,41 +13,56 @@ function(Contract, Bediende, BusinessUnit, $uibModal, $scope) {
     }
     Contract.query(
         (success) => {
-            this.contracts = success;
-            this.aggregatedContracts = this.contracts;
+            this.aggregatedContracts = success;
 
-            this.aggregatedContracts.map((contract) => {
-
-                Bediende.get(
-                    {id: contract.bediendeId},
-                    (bediende) => {
-                        contract.bediende = bediende;
-                    }
-                );
-
+            this.aggregatedContracts.map((aggregatedContract) => {
                 BusinessUnit.get(
-                    {id: contract.businessUnitId},
+                    {id: aggregatedContract.contract.businessUnitId},
                     (businessUnit) => {
-                        contract.businessUnit = businessUnit;
+                        aggregatedContract.contract.businessUnit = businessUnit;
                     }
-                );
-
-            })
+                )
+            });
         }
     );
 
-    var aggregateContract = (contract) => {
+    // Contract.query(
+    //     (success) => {
+    //         this.contracts = success;
+    //         this.aggregatedContracts = this.contracts;
+    //
+    //         this.aggregatedContracts.map((contract) => {
+    //
+    //             Bediende.get(
+    //                 {id: contract.bediendeId},
+    //                 (bediende) => {
+    //                     contract.bediende = bediende;
+    //                 }
+    //             );
+    //
+    //             BusinessUnit.get(
+    //                 {id: contract.businessUnitId},
+    //                 (businessUnit) => {
+    //                     contract.businessUnit = businessUnit;
+    //                 }
+    //             );
+    //
+    //         })
+    //     }
+    // );
+
+    var aggregateContract = (aggregatedContract) => {
         Bediende.get(
-            {id: contract.bediendeId},
+            {id: aggregatedContract.contract.bediendeId},
             (bediende) => {
-                contract.bediende = bediende;
+                aggregatedContract.bediende = bediende;
             }
         );
 
         BusinessUnit.get(
-            {id: contract.businessUnitId},
+            {id: aggregatedContract.contract.businessUnitId},
             (businessUnit) => {
-                contract.businessUnit = businessUnit;
+                aggregatedContract.contract.businessUnit = businessUnit;
             }
         );
     }
@@ -82,17 +97,17 @@ function(Contract, Bediende, BusinessUnit, $uibModal, $scope) {
 
     this.deleteContract = (contractId) => {
         var index = undefined;
-        var contractToDelete = this.aggregatedContracts.filter((contract, i) => {
-            if (contract.id == contractId) { index = i}
-            return contract.id == contractId;
+        var contractToDelete = this.aggregatedContracts.filter((aggregatedContract, i) => {
+            if (aggregatedContract.contract.id == contractId) { index = i}
+            return aggregatedContract.contract.id == contractId;
         });
 
-        $uibModal.open(this.createConfirmModal("Contract verwijderen", "Ben je zeker dat je het contract tussen "+contractToDelete[0].bediende.voorNaam+" "+contractToDelete[0].bediende.familieNaam+" en "+contractToDelete[0].businessUnit.naam+" wil verwijderen?")).result.then(
+        $uibModal.open(this.createConfirmModal("Contract verwijderen", "Ben je zeker dat je het contract tussen "+contractToDelete[0].bediende.voorNaam+" "+contractToDelete[0].bediende.familieNaam+" en "+contractToDelete[0].contract.businessUnit.naam+" wil verwijderen?")).result.then(
             (success) => {
                 Contract.delete(
-                    {id: contractToDelete[0].id},
+                    {id: contractToDelete[0].contract.id},
                     (successResult) => {
-                        this.contracts.splice(index, 1);
+                        this.aggregatedContracts.splice(index, 1);
                     },
                     (errorResult) => {
                     }
@@ -113,8 +128,13 @@ function(Contract, Bediende, BusinessUnit, $uibModal, $scope) {
                     (successResult) => {
                         console.log("Contract was saved! Result is %o", successResult);
 
-                        aggregateContract(successResult);
-                        this.aggregatedContracts.push(successResult);
+                        var newAggregatedContract = {
+                            contract: successResult,
+                            bediende: undefined
+                        };
+                        aggregateContract(newAggregatedContract);
+
+                        this.aggregatedContracts.push(newAggregatedContract);
                     },
                     (errorResult) => {
                         console.log("Saving Contract failed! Result was %o", errorResult);
@@ -135,13 +155,18 @@ function(Contract, Bediende, BusinessUnit, $uibModal, $scope) {
                     (successResult) => {
                         console.log("Contract was edited! Result is %o", successResult);
 
-                        aggregateContract(successResult);
+                        var newAggregatedContract = {
+                            contract: successResult,
+                            bediende: undefined
+                        };
 
-                        this.contracts.filter((contr, i) => {
-                            if (contr.id == originalContract.id) {
-                                this.contracts[i] = successResult;
+                        aggregateContract(newAggregatedContract);
+
+                        this.aggregatedContracts.filter((aggrContr, i) => {
+                            if (aggrContr.contract.id == originalContract.id) {
+                                this.aggregatedContracts[i] = newAggregatedContract;
                             }
-                            return contr.id == originalContract.id;
+                            return aggrContr.contract.id == originalContract.id;
                         });
                     },
                     (errorResult) => {
