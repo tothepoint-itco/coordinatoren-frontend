@@ -2,14 +2,14 @@
 
 
 angular.module('coordinatorentoolControllers').controller("ContractController",
-["ContractResource", "BediendeResource","ContractAggregatedResource", "BusinessUnitResource", "$uibModal","$scope",
-function(Contract, Bediende, ContractAggregatedResource, BusinessUnit, $uibModal, $scope) {
+["ContractAggregatedResource", "BediendeResource", "BusinessUnitResource", "$uibModal","$scope",
+function(ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope) {
     $scope.propertyName = 'voorNaam';
     this.sortBy = (propertyName) =>{
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
     }
-    Contract.query(
+    ContractAggregated.query(
         (success) => {
             this.aggregatedContracts = success;
 
@@ -23,31 +23,6 @@ function(Contract, Bediende, ContractAggregatedResource, BusinessUnit, $uibModal
             });
         }
     );
-
-    // Contract.query(
-    //     (success) => {
-    //         this.contracts = success;
-    //         this.aggregatedContracts = this.contracts;
-    //
-    //         this.aggregatedContracts.map((contract) => {
-    //
-    //             Bediende.get(
-    //                 {id: contract.bediendeId},
-    //                 (bediende) => {
-    //                     contract.bediende = bediende;
-    //                 }
-    //             );
-    //
-    //             BusinessUnit.get(
-    //                 {id: contract.businessUnitId},
-    //                 (businessUnit) => {
-    //                     contract.businessUnit = businessUnit;
-    //                 }
-    //             );
-    //
-    //         })
-    //     }
-    // );
 
     var aggregateContract = (aggregatedContract) => {
         Bediende.get(
