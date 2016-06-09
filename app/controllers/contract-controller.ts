@@ -2,9 +2,14 @@
 
 
 angular.module('coordinatorentoolControllers').controller("ContractController",
-["ContractResource", "BediendeResource", "ContractAggregatedResource", "BusinessUnitResource", "$uibModal",
-function(Contract, Bediende, ContractAggregatedResource, BusinessUnit, $uibModal) {
-    ContractAggregatedResource.query(
+["ContractResource", "BediendeResource","ContractAggregatedResource", "BusinessUnitResource", "$uibModal","$scope",
+function(Contract, Bediende, ContractAggregatedResource, BusinessUnit, $uibModal, $scope) {
+    $scope.propertyName = 'voorNaam';
+    this.sortBy = (propertyName) =>{
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+    }
+    Contract.query(
         (success) => {
             this.aggregatedContracts = success;
 

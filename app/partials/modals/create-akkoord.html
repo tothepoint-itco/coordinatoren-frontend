@@ -21,7 +21,7 @@
                     {{cakkCtrl.selectedOpdrachtLabel || "Kies een opdracht"}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="akkoord-opdracht">
-                    <li role="menuitem" ng-repeat="opdracht in cakkCtrl.opdrachten | orderBy: 'klant'"><a ng-click="cakkCtrl.selectOpdracht(opdracht)" href=""> {{opdracht.klant}} {{opdracht.locatie}} ({{opdracht.startDatum}}) </a></li>
+                    <li role="menuitem" ng-repeat="opdracht in cakkCtrl.opdrachten"><a ng-click="cakkCtrl.selectOpdracht(opdracht)" href=""> {{opdracht.klant}} {{opdracht.locatie}} ({{opdracht.startDatum}}) </a></li>
                 </ul>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     {{cakkCtrl.selectedConsultantLabel || "Kies consultant"}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="akkoord-consultant">
-                    <li role="menuitem" ng-repeat="consultant in cakkCtrl.consultants| orderBy:'voorNaam'"><a ng-click="cakkCtrl.selectConsultant(consultant)" href="">{{consultant.voorNaam}} {{consultant.familieNaam}}</a></li>
+                    <li role="menuitem" ng-repeat="consultant in cakkCtrl.consultants"><a ng-click="cakkCtrl.selectConsultant(consultant)" href="">{{consultant.voorNaam}} {{consultant.familieNaam}}</a></li>
                 </ul>
             </div>
         </div>

@@ -7,13 +7,13 @@
 
 <table class="table table-hover">
     <tr>
-        <th>Bediende</th>
+        <th ng-click="contractCtrl.sortBy('bediende.voorNaam')">Bediende</th>
         <th>Business unit</th>
         <th>Begindatum</th>
         <th>Einddatum</th>
         <th>Acties</th>
     </tr>
-    <tr ng-repeat="aggregatedContract in contractCtrl.aggregatedContracts">
+    <tr ng-repeat="aggregatedContract in contractCtrl.aggregatedContracts | orderBy:['bediende.voorNaam','bediende.familieNaam']:reverse ">
         <td><a href="#/bediendes/{{aggregatedContract.bediende.id}}">{{aggregatedContract.bediende.voorNaam}} {{aggregatedContract.bediende.familieNaam}}</a></td>
         <td><a href="#/business-units/{{aggregatedContract.contract.businessUnit.id}}">{{aggregatedContract.contract.businessUnit.naam}}</a></td>
         <td>{{aggregatedContract.contract.startDatum}}</td>
