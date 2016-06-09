@@ -1,13 +1,13 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("TimelineOverviewController", ["$rootScope", "AkkoordResource","BestelbonResource","$uibModal",
-function($rootScope, Akkoord, Bestelbon, $uibModal) {
+angular.module('coordinatorentoolControllers').controller("TimelineOverviewController", ["$rootScope", "AkkoordResource","BestelbonResource", "ContractResource", "$uibModal",
+function($rootScope, Akkoord, Bestelbon, Contract, $uibModal) {
     $rootScope.$watch(
         () => this.data, (newVal, oldVal) => {
             if (((oldVal == undefined) || (oldVal.length == 0)) && (newVal != undefined && newVal.length > 0)) {
                 console.log("NEWVAL IS %o", newVal);
-                this.drawTimeline(newVal);
+                this.setUp(newVal);
             }
         },
         true
@@ -38,16 +38,13 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
         }
     }
 
-
-    this.drawTimeline = (data) => {
-        console.log("Drawing timeline with data: %o", data);
+    this.drawActualTimeline = (data) => {
         var container = document.getElementById("visualization-overview");
 
         var dataSetArray = [];
 
         var groups = [];
         var subGroups = [];
-
 
         data.map((aggregatedConsultant) => {
             groups.push({id: aggregatedConsultant.consultant.id, content: aggregatedConsultant.consultant.voorNaam + " " + aggregatedConsultant.consultant.familieNaam});
@@ -69,6 +66,7 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
                     dataSetArray.push({
                         id: "B" + bestelbon.id,
                         group: aggregatedConsultant.consultant.id,
+                        subgroup: akkoordAggregated.akkoord.id,
                         start: moment(bestelbon.startDatum, "DD/MM/YYYY"),
                         end: moment(bestelbon.eindDatum, "DD/MM/YYYY"),
                         content: "<p></p>",
@@ -78,6 +76,21 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
                 });
 
             });
+
+            aggregatedConsultant.contracts.map((contract) => {
+                if ((contract.startDatum != null) && (contract.eindDatum != null)) {
+                    dataSetArray.push({
+                        id: "C" + contract.id,
+                        group: aggregatedConsultant.consultant.id,
+                        subgroup: "contract-"+aggregatedConsultant.consultant.id,
+                        start: moment(contract.startDatum, "DD/MM/YYYY"),
+                        end: moment(contract.eindDatum, "DD/MM/YYYY"),
+                        //type: "background",
+                        style: "background-color: #d5ddf7; height: 8px; opacity: 0.4",
+                        title: "Contract voor: "+ aggregatedConsultant.consultant.voorNaam +"\nLoopt van: " + moment(contract.startDatum, "DD/MM/YYYY").format("D MMM") + " tot " + moment(contract.eindDatum, "DD/MM/YYYY").format("D MMM")
+                    });
+                }
+            })
 
         });
 
@@ -115,6 +128,29 @@ function($rootScope, Akkoord, Bestelbon, $uibModal) {
         };
 
         var timeline = new vis.Timeline(container, items, groups, options);
+    }
+
+    this.fetchContracts = (data, contracts) => {
+        data.map((aggregatedConsultant) => {
+            aggregatedConsultant.contracts = contracts.filter((c) => {
+                return c.bediendeId == aggregatedConsultant.consultant.id;
+            });
+        });
+        this.drawActualTimeline(data);
+    }
+
+
+    this.setUp = (data) => {
+        var newData = angular.copy(data);
+
+        Contract.query(
+            (contracts) => {
+                this.fetchContracts(newData, contracts);
+            },
+            (error) => {
+                this.drawActualTimeline(newData);
+            }
+        );
     }
 
 }]);
