@@ -1,7 +1,8 @@
 'use strict',
 
-angular.module('coordinatorentoolControllers').controller('OpdrachtController', ["OpdrachtResource", "$uibModal",
-function(Opdracht, $uibModal) {
+angular.module('coordinatorentoolControllers').controller('OpdrachtController', ["OpdrachtResource", "$uibModal","$scope",
+function(Opdracht, $uibModal, $scope) {
+    $scope.propertyName = 'date';
     Opdracht.query(
         (success) => {
             this.opdrachten = success;
@@ -19,6 +20,12 @@ function(Opdracht, $uibModal) {
                 opdracht: () => angular.copy(opdracht)
             }
         }
+    }
+    this.sortBy = (propertyName) =>{
+        console.log("foobar");
+        $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+        $scope.propertyName = propertyName;
+        //this.opdrachten = orderBy(this.opdrachten, propertyName)
     }
 
     this.createConfirmModal = (title, body) => {

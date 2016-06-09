@@ -7,22 +7,22 @@
 
 <table class="table table-hover">
     <tr>
+        <th ng-click="opdrachtCtrl.sortBy('klant')">Klant</th>
         <th>Locatie</th>
         <th>Indicatieve tarief</th>
         <th>Account manager</th>
-        <th>Startdatum</th>
+        <th ng-click="opdrachtCtrl.sortBy('date')">Startdatum</th>
         <th>Einddatum</th>
-        <th>Klant</th>
         <th>Info</th>
         <th>Acties</th>
     </tr>
-    <tr ng-repeat="opdracht in opdrachtCtrl.opdrachten">
+    <tr ng-repeat="opdracht in opdrachtCtrl.opdrachten | orderBy:propertyName:reverse">
+        <td>{{opdracht.klant}}</td>
         <td>{{opdracht.locatie}}</td>
         <td>{{opdracht.tarief}}</td>
         <td>{{opdracht.accountManager}}</td>
         <td>{{opdracht.startDatum}}</td>
         <td>{{opdracht.deadline}}</td>
-        <td>{{opdracht.klant}}</td>
         <td>{{opdracht.info}}</td>
         <td>
             <span style="cursor: pointer" class="glyphicon glyphicon-pencil" href="" ng-click="opdrachtCtrl.editOpdracht(opdracht)"></span>
