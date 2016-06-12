@@ -22,7 +22,7 @@
                     {{ccCtrl.selectedBusinessUnit.naam || "Kies business unit"}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="contract-business-unit">
-                    <li role="menuitem" ng-repeat="bu in ccCtrl.businessUnits"><a ng-click="ccCtrl.selectBusinessUnit(bu)" href="">{{bu.naam}}</li>
+                    <li role="menuitem" ng-repeat="bu in ccCtrl.businessUnits | orderBy:'naam'"><a ng-click="ccCtrl.selectBusinessUnit(bu)" href="">{{bu.naam}}</li>
                 </ul>
             </div>
         </div>
