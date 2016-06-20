@@ -1,26 +1,28 @@
 'use strict';
 
-
 angular.module('coordinatorentoolControllers').controller("AkkoordController",
-["AkkoordResource", "ConsultantResource", "OpdrachtResource", "$uibModal", "$scope",
-function(Akkoord, Consultant, Opdracht, $uibModal, $scope) {
+["AkkoordResource", "ConsultantResource", "OpdrachtResource", "alertService", "$uibModal", "$scope",
+function(Akkoord, Consultant, Opdracht, alertService, $uibModal, $scope) {
 
     $scope.propertyName = 'voorNaam';
     this.sortBy = (propertyName) =>{
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
         $scope.propertyName = propertyName;
-        //$scope.comparator = comparator;
-        console.log(propertyName);
-        //this.opdrachten = orderBy(this.opdrachten, propertyName)
     }
     Akkoord.query(
         (success) => {
             this.akkoorden = success;
-
             this.akkoorden.map((akkoord) => {
                 aggregateAkkoord(akkoord);
-
             });
+        },
+        (error) => {
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP error",
+                body: "De akkoorden konden niet opgehaald worden"
+            })
         }
     );
 

@@ -26,6 +26,7 @@
     "files": [
         "app/app.ts",
         "app/controllers/akkoord-controller.ts",
+        "app/controllers/alert-controller.ts",
         "app/controllers/bediende-controller.ts",
         "app/controllers/bediende-details-controller.ts",
         "app/controllers/beheerder-controller.ts",
@@ -64,6 +65,8 @@
         "app/models/login.ts",
         "app/models/opdracht.ts",
         "app/models/rol.ts",
-        "app/models/user.ts"
+        "app/models/user.ts",
+        "app/services/alert-service.ts",
+        "app/tsmodels/alert.ts"
     ]
 }
