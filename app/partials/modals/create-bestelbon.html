@@ -7,15 +7,21 @@
 <div class="modal-body">
     <form>
         <div class="form-group">
-            <label for="bestelbon-projectcode">Bestelbon project code</label>
-            <input type="text" class="form-control" id="bestelbon-projectcode" ng-model="cbonCtrl.bestelbon.projectCode" placeholder="Project code">
+            <div class="btn-group" uib-dropdown is-open="status.isopen2">
+                <button id="bestelbon-akkoordId" type="button" class="btn btn-sm btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                    {{cbonCtrl.selectedAkkoordLabel || "Kies een akkoord"}}<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="bestelbon-akkoordId">
+                    <li role="menuitem" ng-repeat="akkoord in cbonCtrl.akkoorden"><a ng-click="cbonCtrl.selectAkkoord(akkoord)" href="">{{akkoord.projectCode}}</a></li>
+                </ul>
+            </div>
         </div>
 
         <div class="dropdown">
-            <label for="bestelbon-startdatum">Begindatum (dd/mm/yyyy)</label>
+            <label for="bestelbon-startdatum">Begindatum</label>
             <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown">
                 <div class="input-group">
-                    <input  type="text" class="form-control" data-ng-model="cbonCtrl.bestelbon.startDatum">
+                    <input  type="text" class="form-control" data-ng-model="cbonCtrl.bestelbon.startDatum" placeholder="(dd/mm/yyyy)">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </a>
@@ -24,10 +30,10 @@
             </ul>
         </div>
         <div class="dropdown">
-            <label for="bestelbon-einddatum">Einddatum (dd/mm/yyyy)</label>
+            <label for="bestelbon-einddatum">Einddatum</label>
             <a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown">
                 <div class="input-group">
-                    <input  type="text" class="form-control" data-ng-model="cbonCtrl.bestelbon.eindDatum">
+                    <input  type="text" class="form-control" data-ng-model="cbonCtrl.bestelbon.eindDatum" placeholder="(dd/mm/yyyy)">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </a>
