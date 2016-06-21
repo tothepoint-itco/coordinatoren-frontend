@@ -1,10 +1,13 @@
 'use strict',
 
-angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "$uibModal",
-function(Bestelbon, $uibModal) {
+angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "$uibModal","AkkoordResource",
+function(Bestelbon, $uibModal, Akkoord) {
     Bestelbon.query(
         (success) => {
             this.bestelbonnen = success;
+            this.bestelbonnen.map((bestelbon =>{
+                aggregateBestelbon(bestelbon);
+            }))
         }
     );
 
@@ -19,6 +22,14 @@ function(Bestelbon, $uibModal) {
                 bestelbon: () => angular.copy(bestelbon)
             }
         }
+    }
+    var aggregateBestelbon = (bestelbon) =>{
+        Akkoord.get(
+            {id:bestelbon.akkoordId},
+            (akkoord) => {
+                bestelbon.projectCode = akkoord.projectCode;
+            }
+        )
     }
 
     this.createConfirmModal = (title, body) => {
