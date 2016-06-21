@@ -53,6 +53,7 @@
         "app/controllers/planning-controller.ts",
         "app/controllers/rol-controller.ts",
         "app/controllers/user-controller.ts",
+        "app/models/akkoord-aggregated.ts",
         "app/models/akkoord.ts",
         "app/models/bediende.ts",
         "app/models/beheerder.ts",

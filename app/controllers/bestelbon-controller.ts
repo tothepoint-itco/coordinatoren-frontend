@@ -1,7 +1,7 @@
 'use strict',
 
-angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "$uibModal","AkkoordResource",
-function(Bestelbon, $uibModal, Akkoord) {
+angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "$uibModal","AkkoordAggregatedResource",
+function(Bestelbon, $uibModal, AkkoordAggregated) {
     Bestelbon.query(
         (success) => {
             this.bestelbonnen = success;
@@ -24,10 +24,11 @@ function(Bestelbon, $uibModal, Akkoord) {
         }
     }
     var aggregateBestelbon = (bestelbon) =>{
-        Akkoord.get(
+        AkkoordAggregated.get(
             {id:bestelbon.akkoordId},
-            (akkoord) => {
-                bestelbon.projectCode = akkoord.projectCode;
+            (akkoordAggregated) => {
+                bestelbon.opdracht = akkoordAggregated.opdracht;
+                bestelbon.akkoord = akkoordAggregated.akkoord;
             }
         )
     }
@@ -75,6 +76,7 @@ function(Bestelbon, $uibModal, Akkoord) {
                     bestelbon,
                     (successResult)=> {
                         console.log("Bestelbon was saved! Result is %o", successResult);
+                        aggregateBestelbon(successResult);
                         this.bestelbonnen.push(successResult);
                     },
                     (errorResult) => {
@@ -100,6 +102,7 @@ function(Bestelbon, $uibModal, Akkoord) {
                             }
                             return bestlb.id == originalBestelbon.id;
                         });
+                        aggregateBestelbon(successResult);
                     },
                     (errorResult) => {
                         console.log("Saving Bestelbon failed! Result was %o", errorResult);

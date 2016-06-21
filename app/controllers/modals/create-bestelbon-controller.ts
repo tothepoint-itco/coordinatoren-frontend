@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('coordinatorentoolControllers').controller("CreateBestelbonController",['$uibModalInstance', "updateMode", "bestelbon","AkkoordResource",
-function($uibModalInstance, updateMode, bestelbon, Akkoord){
+angular.module('coordinatorentoolControllers').controller("CreateBestelbonController",['$uibModalInstance', "updateMode", "bestelbon","AkkoordAggregatedResource",
+function($uibModalInstance, updateMode, bestelbon, AkkoordAggregated){
     this.akkoorden = [];
     this.selectedAkkoord = undefined;
     this.selectedAkkoordLabel = undefined;
@@ -14,12 +14,12 @@ function($uibModalInstance, updateMode, bestelbon, Akkoord){
             eindDatum: undefined
         };
     }
-    Akkoord.query(
+    AkkoordAggregated.query(
         (akkoorden) => {
             this.akkoorden = akkoorden;
             if (this.updateMode == true && this.bestelbon.akkoordId != undefined) {
                 akkoorden.map((akkoord) => {
-                    if (this.bestelbon.akkoordId == akkoord.id) {
+                    if (this.bestelbon.akkoordId == akkoord.akkoord.id) {
                         this.selectAkkoord(akkoord);
                     }
                 });
@@ -29,9 +29,8 @@ function($uibModalInstance, updateMode, bestelbon, Akkoord){
     this.selectAkkoord = (akkoord) => {
         if (akkoord != undefined) {
             this.selectedAkkoord = akkoord;
-            this.selectedAkkoordLabel = akkoord.projectCode;
-            this.bestelbon.akkoordId = akkoord.id;
-            console.log(this.selectedAkkoordLabel)
+            this.selectedAkkoordLabel = akkoord.opdracht.klant + " @ " + akkoord.opdracht.locatie + " (" + akkoord.akkoord.projectCode + ")";
+            this.bestelbon.akkoordId = akkoord.akkoord.id;
         }
     }
 

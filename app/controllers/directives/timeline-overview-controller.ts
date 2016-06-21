@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("TimelineOverviewController", ["$rootScope", "AkkoordResource","BestelbonResource", "ContractResource", "$uibModal",
-function($rootScope, Akkoord, Bestelbon, Contract, $uibModal) {
+angular.module('coordinatorentoolControllers').controller("TimelineOverviewController", ["$rootScope", "AkkoordResource", "AkkoordAggregatedResource", "BestelbonResource", "ContractResource", "$uibModal",
+function($rootScope, Akkoord, AkkoordAggregated, Bestelbon, Contract, $uibModal) {
     $rootScope.$watch(
         () => this.data, (newVal, oldVal) => {
             if (((oldVal == undefined) || (oldVal.length == 0)) && (newVal != undefined && newVal.length > 0)) {
@@ -110,7 +110,12 @@ function($rootScope, Akkoord, Bestelbon, Contract, $uibModal) {
                 Bestelbon.get(
                     {id:this.timeLineId.substring(1)},
                     (success) =>{
-                        $uibModal.open(this.bestelbonModal("Bestelbon met project code : "+success.projectCode, success));
+                        AkkoordAggregated.get(
+                            {id: success.akkoordId},
+                            (akkAggr) => {
+                                $uibModal.open(this.bestelbonModal("Bestelbon met project code : "+akkAggr.akkoord.projectCode, success));
+                            }
+                        )
                     }
                 );
             }
@@ -122,7 +127,6 @@ function($rootScope, Akkoord, Bestelbon, Contract, $uibModal) {
             stack: false,
             selectable: false,
             locale: 'nl',
-            //start: new Date(),
             start: new Date().setMonth(new Date().getMonth()-1),
             end: new Date().setMonth(new Date().getMonth()+3)
         };
