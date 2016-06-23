@@ -2,7 +2,7 @@
 
 angular.module('coordinatorentoolControllers').controller('OpdrachtController', ["OpdrachtResource", "$uibModal","$scope",
 function(Opdracht, $uibModal, $scope) {
-    $scope.propertyName = 'date';
+    $scope.propertyName = 'klant';
     Opdracht.query(
         (success) => {
             this.opdrachten = success;
