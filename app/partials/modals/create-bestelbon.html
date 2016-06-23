@@ -12,7 +12,8 @@
                     {{cbonCtrl.selectedAkkoordLabel || "Kies een akkoord"}}<span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="bestelbon-akkoordId">
-                    <li role="menuitem" ng-repeat="akkoord in cbonCtrl.akkoorden | orderBy: ['opdracht.klant','opdracht.locatie','akkoord.projectCode'] "><a ng-click="cbonCtrl.selectAkkoord(akkoord)" href="">{{akkoord.opdracht.klant}} ({{akkoord.consultant.voorNaam}} - {{akkoord.akkoord.bezettingsGraad}}% @ {{akkoord.opdracht.info}} , {{akkoord.akkoord.informeelStartDatum}} - {{akkoord.akkoord.informeelStartDatum}})</a></li>
+                    <li role="menuitem" ng-repeat="akkoord in cbonCtrl.akkoorden | orderBy: ['opdracht.klant','opdracht.consultant.voorNaam','akkoord.bezettingsGraad','opdracht.info', 'akkoord.informeelStartDatum', 'akkoord.informeelStartDatum'] "><a ng-click="cbonCtrl.selectAkkoord(akkoord)" 
+                        href="">{{akkoord.opdracht.klant}} ({{akkoord.consultant.voorNaam}} - {{akkoord.akkoord.bezettingsGraad}}% @ {{akkoord.opdracht.info}} , {{akkoord.akkoord.informeelStartDatum}} - {{akkoord.akkoord.informeelStartDatum}})</a></li>
                 </ul>
             </div>
         </div>
