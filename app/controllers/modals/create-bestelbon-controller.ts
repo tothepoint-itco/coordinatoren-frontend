@@ -15,52 +15,35 @@ function($uibModalInstance, updateMode, bestelbon, AkkoordAggregated, Consultant
             eindDatum: undefined
         };
     }
-    // AkkoordAggregated.query(
-    //     (akkoorden) => {
-    //         this.akkoorden = akkoorden;
-    //         this.akkoorden.map((akkoord) =>{
-    //             aggregateConsultant(akkoord);
-    //             if(this.updateLode == true && this.bestelbon.akkoordId != undefined && this.bestelbon.akkoordId == akkoord.akkoord.id){
-    //                 this.selectAkkoord(akkoord);
-    //             }
-    //         });
-    //     //     if (this.updateMode == true && this.bestelbon.akkoordId != undefined ) {
-    //     //         this.akkoorden.map((akkoord) => {
-    //     //             if (this.bestelbon.akkoordId == akkoord.akkoord.id) {
-    //     //                 this.selectAkkoord(akkoord);
-    //     //             }
-    //     //         });
-    //     //     }else{
-    //     //     akkoorden.map((akkoord) =>{ aggregateConsultant(akkoord);})
-    //     // }
-    // });
+
     AkkoordAggregated.query(
         (akkoorden) => {
             this.akkoorden = akkoorden;
             akkoorden.map((akkoord) => {
                 this.akkoord = akkoord;
                 aggregateConsultant(this.akkoord);
-                console.log("this.akkoord", this.akkoord);
-                if (this.updateMode == true && this.bestelbon.akkoordId != undefined && this.bestelbon.akkoordId == akkoord.akkoord.id) {
-                    this.selectAkkoord(akkoord);
-                }
             });
 
         }
     );
-    var aggregateConsultant= (akkoord) => {
+    var aggregateConsultant = (akkoord) => {
         Consultant.get(
             {id: akkoord.akkoord.consultantId},
             (consultant) => {
                 akkoord.consultant = consultant;
+                console.log("this.akkoord", this.akkoord);
+                if (this.updateMode == true && this.bestelbon.akkoordId != undefined && this.bestelbon.akkoordId == akkoord.akkoord.id) {
+                    console.log("selected Akkoord")
+                    this.selectAkkoord(akkoord);
+                }
             }
         );
     }
     this.selectAkkoord = (akkoord) => {
         if (akkoord != undefined) {
-            console.log(akkoord);
+            console.log(akkoord
             this.selectedAkkoord = akkoord;
-            this.selectedAkkoordLabel = akkoord.opdracht.klant + " ( " + akkoord.akkoord.consultantId+" - "+akkoord.akkoord.bezettingsGraad+ "% @ " + akkoord.opdracht.info +" , "+ akkoord.akkoord.informeelStartDatum+ " - "+akkoord.akkoord.informeelStartDatum+")";
+            this.selectedAkkoordLabel = akkoord.opdracht.klant + " ( " + akkoord.consultant.voorNaam+" "+ akkoord.consultant.familieNaam+" - "+akkoord.akkoord.bezettingsGraad+ "% @ " + akkoord.opdracht.info +" , "+ akkoord.akkoord.informeelStartDatum+ " - "+akkoord.akkoord.informeelStartDatum+")";
             this.bestelbon.akkoordId = akkoord.akkoord.id;
         }
 
