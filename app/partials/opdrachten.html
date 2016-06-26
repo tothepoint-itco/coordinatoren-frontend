@@ -7,6 +7,7 @@
 
 <table class="table table-hover">
     <tr>
+        <th>Opdracht</th>
         <th ng-click="opdrachtCtrl.sortBy('klant')">Klant</th>
         <th>Locatie</th>
         <th>Indicatieve tarief</th>
@@ -16,7 +17,8 @@
         <th>Info</th>
         <th>Acties</th>
     </tr>
-    <tr ng-repeat="opdracht in opdrachtCtrl.opdrachten | orderBy:propertyName:reverse">
+    <tr ng-repeat="opdracht in opdrachtCtrl.opdrachten | orderBy: [propertyName, 'locatie',  'startDatum', 'deadline', tarief] :reverse">
+        <td>{{opdracht.klant}} @ {{opdracht.locatie}}</td>
         <td>{{opdracht.klant}}</td>
         <td>{{opdracht.locatie}}</td>
         <td>{{opdracht.tarief}}</td>
