@@ -26,15 +26,15 @@
             <input type="text" class="form-control" id="bediende-geboortedatum" ng-model="cbedCtrl.bediende.geboorteDatum" placeholder="Geboortedatum">
         </div> -->
         <div class="dropdown">
-            <label for="bestelbon-einddatum">Geboortedatum</label>
+            <label for="bediende-geboortedatum">Geboortedatum</label>
             <a class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown">
                 <div class="input-group">
-                    <input  type="text" class="form-control" data-ng-model="cbedCtrl.bediende.geboorteDatum" placeholder="(dd/mm/yyyy)">
+                    <input id="bediende-geboortedatum" type="text" class="form-control" data-ng-model="cbedCtrl.bediende.geboorteDatum" placeholder="(yyyy-mm-dd)">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                 </div>
             </a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                <datetimepicker data-ng-model="cbedCtrl.bediende.geboorteDatum" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day', minView:'day', modelType: 'DD/MM/YYYY'}"/>
+                <datetimepicker data-ng-model="cbedCtrl.bediende.geboorteDatum" data-datetimepicker-config="{ dropdownSelector: '#dropdown1', startView:'day', minView:'day', modelType: 'YYYY-MM-DD'}"/>
             </ul>
         </div>
 
