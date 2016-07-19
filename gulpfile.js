@@ -7,4 +7,4 @@ gulp.task('default', function() {
   // nop
 });
 
-gulp.task('build', ['config', 'uglify', 'styles']);
+gulp.task('build', ['config', 'tscompile', 'uglify', 'styles']);
