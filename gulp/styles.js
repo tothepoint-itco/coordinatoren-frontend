@@ -28,7 +28,7 @@ gulp.task('styles:deps', function() {
           .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
           .pipe(concat('vendor.css'))
           .pipe(gulp.dest('app/'));
-})
+});
 
   // MAIN TASK
 
