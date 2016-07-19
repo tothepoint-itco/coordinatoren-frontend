@@ -2,6 +2,13 @@ var gulp    = require('gulp');
 var sass    = require('gulp-sass');
 var concat  = require('gulp-concat');
 
+var dependencies = [
+  "app/bower_components/html5-boilerplate/dist/css/normalize.css",
+  "app/bower_components/html5-boilerplate/dist/css/main.css",
+  "app/bower_components/bootstrap/dist/css/bootstrap.css",
+  "app/bower_components/vis/dist/vis.min.css"
+];
+
 /*
  *
  *       GULP TASKS
@@ -17,7 +24,7 @@ gulp.task('styles:main', function() {
 });
 
 gulp.task('styles:deps', function() {
-  return gulp.src("app/bower_components/**/*.css")
+  return gulp.src(dependencies)
           .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
           .pipe(concat('vendor.css'))
           .pipe(gulp.dest('app/'));
@@ -26,3 +33,7 @@ gulp.task('styles:deps', function() {
   // MAIN TASK
 
 gulp.task('styles', ['styles:deps', 'styles:main']);
+
+gulp.task('styles:watch', function() {
+  return gulp.watch('app/styles/**/*.scss', ['styles:main']);
+});

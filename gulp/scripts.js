@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 
+var environments = require('gulp-environments');
+
 var ts = require('gulp-typescript');
 ts.reporter.nullReporter()
 var tsProject = ts.createProject('tsconfig.json');

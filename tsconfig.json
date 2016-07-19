@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outFile": "app/compiled.js",
+        "outFile": "app/app.js",
         "removeComments": true,
         "target": "es5",
         "module": "commonjs",
