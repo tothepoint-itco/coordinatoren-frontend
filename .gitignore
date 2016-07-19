@@ -7,3 +7,5 @@ tmp
 .idea
 app/compiled.js
 npm-debug.log
+app/app.css
+app/vendor.css

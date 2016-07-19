@@ -1,0 +1,15 @@
+/*
+ * ### MAIN SCSS FILE FOR COORDINATORENTOOL ###
+ *
+ *    ALL IMPORTED FILES WILL BE COMPILED
+ *    TO THE APP.CSS GENERAL STYLESHEET.
+ */
+
+  // GENERAL IMPORTS
+@import './variables.scss';
+
+  // FIXES AND MISC.
+@import "./parts/_fixes.scss";
+
+  // MAIN SCSS FILE IMPORT
+@import "./parts/_menu.scss";
