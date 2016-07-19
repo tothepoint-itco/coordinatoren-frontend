@@ -1,0 +1,14 @@
+/*
+ * CSS FIXES & MISC.
+ */
+
+  /*
+   * ## Margin collapse fix ##
+   *
+   *  Place on empty div to prevent
+   *  margins of two other objects
+   *  from collapsing.
+   */
+.prevent-collapse {
+  display: inline-block;
+}
