@@ -41,7 +41,6 @@ function($uibModalInstance, updateMode, bestelbon, AkkoordAggregated, Consultant
     }
     this.selectAkkoord = (akkoord) => {
         if (akkoord != undefined) {
-            console.log(akkoord
             this.selectedAkkoord = akkoord;
             this.selectedAkkoordLabel = akkoord.opdracht.klant + " ( " + akkoord.consultant.voorNaam+" "+ akkoord.consultant.familieNaam+" - "+akkoord.akkoord.bezettingsGraad+ "% @ " + akkoord.opdracht.info +" , "+ akkoord.akkoord.informeelStartDatum+ " - "+akkoord.akkoord.informeelStartDatum+")";
             this.bestelbon.akkoordId = akkoord.akkoord.id;
