@@ -17,7 +17,7 @@
     </tr>
     <tr ng-repeat="akkoord in akkoordCtrl.akkoorden | orderBy : ['consultant.voorNaam','consultant.familieNaam',-akkoordCtrl.dateSort] : reverse">
         <td><a href="#/bediendes/{{akkoord.consultant.id}}">{{akkoord.consultant.voorNaam}} {{akkoord.consultant.familieNaam}}</a></td>
-        <td><a href="#/akkoorden/{{akkoord.id}}">{{akkoord.projectCode}}</a></td>
+        <td>{{akkoord.projectCode}}</td>
         <td>{{akkoord.opdracht.klant}} - {{akkoord.opdracht.locatie}} - {{akkoord.opdracht.info}}</td>
         <td>{{akkoord.bezettingsGraad}}</td>
         <td>{{akkoord.informeelStartDatum}}</td>
