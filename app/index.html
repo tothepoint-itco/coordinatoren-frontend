@@ -84,7 +84,7 @@
     <div class="container">
         <div id="alerts" ng-controller="AlertController as aCtrl" ng-cloak>
             <uib-alert ng-repeat="alert in aCtrl.getAlerts()" type="{{alert.type}}" dismiss-on-timeout="{{alert.timeout}}" close="aCtrl.close($index)">
-                <strong ng-show="alert.title">{{alert.title}}: </strong>{{alert.body}}</p>
+                <strong ng-show="alert.title">{{alert.title}}: </strong></p><p>{{alert.body}}</p>
             </uib-alert>
         </div>
         <div class="jumbotron">

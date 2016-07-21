@@ -1,12 +1,20 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("BediendeController", ["BediendeResource", "$uibModal",
-function(Bediende, $uibModal) {
+angular.module('coordinatorentoolControllers').controller("BediendeController", ["BediendeResource", "alertService", "$uibModal",
+function(Bediende, alertService, $uibModal) {
     Bediende.query(
         (success) => {
             console.log("Bediende query %o", success);
             this.bediendes = success;
+        },
+        (error) => {
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP Error",
+                body: "De consultants konden niet opgehaald worden."
+            });
         }
     );
 
@@ -49,13 +57,25 @@ function(Bediende, $uibModal) {
                     {id: bediendeToDelete[0].id},
                     (successResult) => {
                         this.bediendes.splice(index, 1);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De consultant is succesvol bijgewerkt."
+                        });
                     },
                     (errorResult) => {
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "3000",
+                            title: "HTTP error",
+                            body: "Het is niet gelukt om de consultant te verwijderen."
+                        })
                     }
                 );
             },
             (error) => {
-                console.log("Nee!");
+
             }
         )
     }
@@ -68,9 +88,27 @@ function(Bediende, $uibModal) {
                     (successResult) => {
                         console.log("Bediende was saved! Result is %o", successResult);
                         this.bediendes.push(successResult);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De consultant is succesvol aangemaakt."
+                        })
                     },
-                    (errorResult) => {
-                        console.log("Saving Bediende failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
             },
@@ -86,22 +124,36 @@ function(Bediende, $uibModal) {
                 Bediende.UPDATE({id: originalBediende.id},
                     bediende,
                     (successResult) => {
-                        console.log("Bediende was edited! Result is %o", successResult);
                         this.bediendes.filter((bedi, i) => {
                             if (bedi.id == originalBediende.id) {
                                 this.bediendes[i] = successResult;
                             }
                             return bedi.id == originalBediende.id;
                         });
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De consultant is succesvol bijgewerkt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving Bediende failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
 
-            },
-            () => {
-                console.log("modal closed!");
             }
         );
     };

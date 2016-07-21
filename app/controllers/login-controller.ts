@@ -12,6 +12,14 @@ function(Login, $uibModal, $cookies) {
                 $cookies.putObject('Authorization', success.token);
                 console.log("Success %o", $cookies.getObject('Authorization'));
                 location.href = "#/planning";
+            },
+            (error) => {
+                alertService.addAlert({
+                    type: "danger",
+                    timeout: "3000",
+                    title: "HTTP Error",
+                    body: "Het is niet gelukt om in te loggen."
+                });
             }
         )
 

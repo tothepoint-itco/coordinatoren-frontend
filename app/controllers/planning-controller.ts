@@ -1,8 +1,8 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("PlanningController", ["BusinessUnitResource", "ContractResource", "ConsultantAggregatedResource","$filter", "$scope",
-function(BusinessUnit, Contract, ConsultantAggregated, $filter, $scope) {
+angular.module('coordinatorentoolControllers').controller("PlanningController", ["BusinessUnitResource", "ContractResource", "ConsultantAggregatedResource", "alertService", "$filter", "$scope",
+function(BusinessUnit, Contract, ConsultantAggregated, alertService, $filter, $scope) {
     this.aggregatedConsultants = [];
 
     var orderBy = $filter('orderBy');
@@ -15,7 +15,6 @@ function(BusinessUnit, Contract, ConsultantAggregated, $filter, $scope) {
                     aggregatedConsultant.akkoorden.map((akkoord)=>{
                         //console.log("Akkoord", akkoord.akkoord.bezettingsGraad);
                         if(akkoord.akkoord.bezettingsGraad != undefined){
-                            console.log("parseInt")
                             aggregatedConsultant.consultant.som =+ parseInt(akkoord.akkoord.bezettingsGraad);
                         }
                     });
@@ -40,7 +39,12 @@ function(BusinessUnit, Contract, ConsultantAggregated, $filter, $scope) {
             })
         },
         (error) => {
-            console.log("Call failed, result was %o", error);
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP Error",
+                body: "De planning kon niet opgehaald worden."
+            });
         }
     );
 
@@ -50,13 +54,9 @@ function(BusinessUnit, Contract, ConsultantAggregated, $filter, $scope) {
        this.aggregatedConsultants = orderBy(this.aggregatedConsultants, predicate, this.reverse);
   };
   $scope.orderTimeline = (predicate) => {
-     console.log("foo%o",this.aggregatedConsultants)
      this.reverse = (this.predicate === predicate) ? !this.reverse : false;
      this.predicate = predicate;
      this.aggregatedConsultants = orderBy(this.aggregatedConsultants, predicate, this.reverse);
 };
-
-    // this.order('age',true)
-
 
 }]);

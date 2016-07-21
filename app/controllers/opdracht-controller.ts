@@ -1,11 +1,19 @@
 'use strict',
 
-angular.module('coordinatorentoolControllers').controller('OpdrachtController', ["OpdrachtResource", "$uibModal","$scope",
-function(Opdracht, $uibModal, $scope) {
+angular.module('coordinatorentoolControllers').controller('OpdrachtController', ["OpdrachtResource", "alertService", "$uibModal","$scope",
+function(Opdracht, alertService, $uibModal, $scope) {
     $scope.propertyName = 'klant';
     Opdracht.query(
         (success) => {
             this.opdrachten = success;
+        },
+        (error) => {
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP Error",
+                body: "De opdrachten konden niet opgehaald worden."
+            });
         }
     );
 
@@ -52,9 +60,20 @@ function(Opdracht, $uibModal, $scope) {
                     {id: opdrachtToDelete[0].id},
                     (successResult) => {
                         this.opdrachten.splice(index,1)
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De opdracht is verwijderd."
+                        });
                     },
                     (errorResult) =>{
-
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "3000",
+                            title: "HTTP Error",
+                            body: "De opdracht kon niet verwijderd worden."
+                        });
                     }
                 );
             },
@@ -69,16 +88,30 @@ function(Opdracht, $uibModal, $scope) {
                 Opdracht.save(
                     opdracht,
                     (successResult)=> {
-                        console.log("Opdracht was saved! Result is %o", successResult);
                         this.opdrachten.push(successResult);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De opdracht is aangemaakt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving Opdracht failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            ()=>{
-                console.log("modal closed!")
             }
         );
     };
@@ -94,14 +127,29 @@ function(Opdracht, $uibModal, $scope) {
                             }
                             return opdr.id == originalOpdracht.id;
                         });
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De opdracht is bijgewerkt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving Opdracht failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            ()=>{
-                console.log("modal closed!")
             }
         );
     };

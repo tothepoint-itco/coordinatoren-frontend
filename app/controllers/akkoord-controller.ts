@@ -88,13 +88,22 @@ function(Akkoord, Consultant, Opdracht, alertService, $uibModal, $scope) {
                     {id: akkoordToDelete[0].id},
                     (successResult) => {
                         this.akkoorden.splice(index, 1);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "Het akkoord is verwijderd."
+                        });
                     },
                     (errorResult) => {
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "3000",
+                            title: "HTTP Error",
+                            body: "Het akkoord kon niet verwijderd worden."
+                        });
                     }
                 );
-            },
-            (error) => {
-                console.log("Nee!");
             }
         )
     }
@@ -107,14 +116,30 @@ function(Akkoord, Consultant, Opdracht, alertService, $uibModal, $scope) {
                     (successResult) => {
                         aggregateAkkoord(successResult);
                         this.akkoorden.push(successResult);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "Het akkoord is aangemaakt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving akkoord failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            () => {
-                console.log("modal closed!");
             }
         );
     };
@@ -133,14 +158,31 @@ function(Akkoord, Consultant, Opdracht, alertService, $uibModal, $scope) {
                         });
 
                         aggregateAkkoord(successResult);
+
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "Het akkoord is bijgewerkt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving akkoord failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            () => {
-                console.log("modal closed!");
             }
         );
     };

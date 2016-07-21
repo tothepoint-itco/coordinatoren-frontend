@@ -1,11 +1,19 @@
 'use strict';
 
 
-angular.module('coordinatorentoolControllers').controller("BusinessUnitController", ["BusinessUnitResource", "$uibModal",
-function(BusinessUnit, $uibModal) {
+angular.module('coordinatorentoolControllers').controller("BusinessUnitController", ["BusinessUnitResource", "alertService", "$uibModal",
+function(BusinessUnit, alertService, $uibModal) {
     BusinessUnit.query(
         (success) => {
             this.businessUnits = success;
+        },
+        (error) => {
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP Error",
+                body: "De business units konden niet opgehaald worden."
+            });
         }
     );
 
@@ -48,13 +56,22 @@ function(BusinessUnit, $uibModal) {
                     {id: businessUnitToDelete[0].id},
                     (successResult) => {
                         this.businessUnits.splice(index, 1);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De business unit is succesvol verwijderd."
+                        });
                     },
                     (errorResult) => {
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "3000",
+                            title: "HTTP Error",
+                            body: "De business unit kon niet verwijderd worden."
+                        });
                     }
                 );
-            },
-            (error) => {
-                console.log("Nee!");
             }
         )
     }
@@ -67,9 +84,27 @@ function(BusinessUnit, $uibModal) {
                     (successResult) => {
                         console.log("BusinessUnit was saved! Result is %o", successResult);
                         this.businessUnits.push(successResult);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De business unit is succesvol aangemaakt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving BusinessUnit failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
             },
@@ -86,8 +121,6 @@ function(BusinessUnit, $uibModal) {
                     {id: originalBusinessUnit.id},
                     businessUnit,
                     (successResult) => {
-                        console.log("BusinessUnit was edited! Result is %o", successResult);
-
                         this.businessUnits.filter((akk, i) => {
                             if (akk.id == originalBusinessUnit.id) {
                                 this.businessUnits[i] = successResult;
@@ -95,14 +128,30 @@ function(BusinessUnit, $uibModal) {
                             return akk.id == originalBusinessUnit.id;
                         });
 
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De business unit is succesvol bijgewerkt."
+                        });
+
                     },
-                    (errorResult) => {
-                        console.log("Editing BusinessUnit failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            () => {
-                console.log("modal closed!");
             }
         );
     };

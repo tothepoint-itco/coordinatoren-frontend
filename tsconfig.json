@@ -68,6 +68,8 @@
         "app/models/rol.ts",
         "app/models/user.ts",
         "app/services/alert-service.ts",
-        "app/tsmodels/alert.ts"
+        "app/tsmodels/alert.ts",
+        "app/tsmodels/error-message.ts",
+        "app/tsmodels/error-response.ts"
     ]
 }

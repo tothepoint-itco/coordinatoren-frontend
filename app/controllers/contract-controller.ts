@@ -2,8 +2,8 @@
 
 
 angular.module('coordinatorentoolControllers').controller("ContractController",
-["ContractResource", "ContractAggregatedResource", "BediendeResource", "BusinessUnitResource", "$uibModal","$scope",
-function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope) {
+["ContractResource", "ContractAggregatedResource", "BediendeResource", "BusinessUnitResource", "alertService", "$uibModal","$scope",
+function(Contract, ContractAggregated, Bediende, BusinessUnit, alertService, $uibModal, $scope) {
     $scope.propertyName = 'voorNaam';
     this.sortBy = (propertyName) =>{
         $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
@@ -20,6 +20,14 @@ function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope
                         aggregatedContract.contract.businessUnit = businessUnit;
                     }
                 )
+            });
+        },
+        (error) => {
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP Error",
+                body: "De contracten konden niet opgehaald worden."
             });
         }
     );
@@ -81,13 +89,22 @@ function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope
                     {id: contractToDelete[0].contract.id},
                     (successResult) => {
                         this.aggregatedContracts.splice(index, 1);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "Het contract is verwijderd."
+                        });
                     },
                     (errorResult) => {
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "3000",
+                            title: "HTTP Error",
+                            body: "Het contract kon niet verwijderd worden."
+                        });
                     }
                 );
-            },
-            (error) => {
-                console.log("Nee!");
             }
         )
     }
@@ -99,8 +116,6 @@ function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope
                 Contract.save(
                     contract,
                     (successResult) => {
-                        console.log("Contract was saved! Result is %o", successResult);
-
                         var newAggregatedContract = {
                             contract: successResult,
                             bediende: undefined
@@ -108,9 +123,29 @@ function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope
                         aggregateContract(newAggregatedContract);
 
                         this.aggregatedContracts.push(newAggregatedContract);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "Het contract is aangemaakt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving Contract failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        console.log("DATA IS: %o" , errorResult.data);
+                        var body = "";
+
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
             },
@@ -126,8 +161,6 @@ function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope
                 Contract.UPDATE({id: originalContract.id},
                     contract,
                     (successResult) => {
-                        console.log("Contract was edited! Result is %o", successResult);
-
                         var newAggregatedContract = {
                             contract: successResult,
                             bediende: undefined
@@ -141,14 +174,30 @@ function(Contract, ContractAggregated, Bediende, BusinessUnit, $uibModal, $scope
                             }
                             return aggrContr.contract.id == originalContract.id;
                         });
+
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "Het contract is bijgewerkt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Editing Contract failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            () => {
-                console.log("modal closed!");
             }
         );
     };

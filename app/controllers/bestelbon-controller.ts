@@ -1,13 +1,21 @@
 'use strict',
 
-angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "$uibModal","AkkoordAggregatedResource",
-function(Bestelbon, $uibModal, AkkoordAggregated) {
+angular.module('coordinatorentoolControllers').controller('BestelbonController', ["BestelbonResource", "alertService", "$uibModal","AkkoordAggregatedResource",
+function(Bestelbon, alertService, $uibModal, AkkoordAggregated) {
     Bestelbon.query(
         (success) => {
             this.bestelbonnen = success;
             this.bestelbonnen.map((bestelbon =>{
                 aggregateBestelbon(bestelbon);
             }))
+        },
+        (error) => {
+            alertService.addAlert({
+                type: "danger",
+                timeout: "3000",
+                title: "HTTP Error",
+                body: "De bestelbonnen konden niet opgehaald worden."
+            });
         }
     );
 
@@ -58,14 +66,22 @@ function(Bestelbon, $uibModal, AkkoordAggregated) {
                     {id: bestelbonToDelete[0].id},
                     (successResult) => {
                         this.bestelbonnen.splice(index,1)
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De bestelbon is verwijderd."
+                        });
                     },
                     (errorResult) =>{
-
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "3000",
+                            title: "HTTP Error",
+                            body: "De bestelbon kon niet verwijderd worden."
+                        });
                     }
                 );
-            },
-            (error) => {
-                console.log("Bestelbon verwijderen werd niet uigevoert!")
             }
         )
     }
@@ -78,14 +94,29 @@ function(Bestelbon, $uibModal, AkkoordAggregated) {
                         console.log("Bestelbon was saved! Result is %o", successResult);
                         aggregateBestelbon(successResult);
                         this.bestelbonnen.push(successResult);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De bestelbon is succesvol aangemaakt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving Bestelbon failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            ()=>{
-                console.log("modal closed!")
             }
         );
     };
@@ -95,7 +126,6 @@ function(Bestelbon, $uibModal, AkkoordAggregated) {
                 Bestelbon.UPDATE({id: originalBestelbon.id},
                     bestelbon,
                     (successResult)=> {
-                        console.log("Bestelbon was saved! Result is %o", successResult);
                         this.bestelbonnen.filter((bestlb, i) => {
                             if (bestlb.id == originalBestelbon.id) {
                                 this.bestelbonnen[i] = successResult;
@@ -103,14 +133,29 @@ function(Bestelbon, $uibModal, AkkoordAggregated) {
                             return bestlb.id == originalBestelbon.id;
                         });
                         aggregateBestelbon(successResult);
+                        alertService.addAlert({
+                            type: "success",
+                            timeout: "3000",
+                            title: "Success",
+                            body: "De bestelbon is succesvol bijgewerkt."
+                        });
                     },
-                    (errorResult) => {
-                        console.log("Saving Bestelbon failed! Result was %o", errorResult);
+                    (errorResult: IErrorResponse) => {
+                        var body = "";
+                        if (Object.prototype.toString.call( errorResult.data ) === '[object Array]') {
+                            errorResult.data.map((errorMessage: IErrorMessage) => {
+                                body += errorMessage.message;
+                            });
+                        }
+
+                        alertService.addAlert({
+                            type: "danger",
+                            timeout: "8000",
+                            title: "HTTP Error",
+                            body: body
+                        });
                     }
                 );
-            },
-            ()=>{
-                console.log("modal closed!")
             }
         );
     };
