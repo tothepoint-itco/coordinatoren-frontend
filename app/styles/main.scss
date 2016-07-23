@@ -9,8 +9,8 @@
 @import './variables.scss';
 
   // FIXES AND MISC.
-@import "./parts/_fixes.scss";
-@import "./parts/_reset.scss";
+@import "./partials/_fixes.scss";
+@import "./partials/_reset.scss";
 
   // MAIN SCSS FILE IMPORT
-@import "./parts/_menu.scss";
+@import "./partials/_menu.scss";

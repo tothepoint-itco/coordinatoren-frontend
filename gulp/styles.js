@@ -5,8 +5,8 @@ var concat  = require('gulp-concat');
 var dependencies = [
   "app/bower_components/html5-boilerplate/dist/css/normalize.css",
   "app/bower_components/html5-boilerplate/dist/css/main.css",
-  "app/bower_components/bootstrap/dist/css/bootstrap.css",
-  "app/bower_components/vis/dist/vis.min.css"
+  "app/bower_components/vis/dist/vis.min.css",
+  "app/styles/dependencies/main.scss"
 ];
 
 /*

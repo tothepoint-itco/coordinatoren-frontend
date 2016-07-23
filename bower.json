@@ -18,6 +18,6 @@
     "angular-cookies": "~1.5.5",
     "angular-jwt": "~0.0.9",
     "angular-bootstrap-datetimepicker": "~1.0.1",
-    "bootstrap": "^3.3.6"
+    "bootstrap-sass": "^3.3.6"
   }
 }
