@@ -5,5 +5,8 @@
  *      OTHER DEPENDENCIES INTO vendor.css
  */
 
+ // General dependency settings
+@import './_settings.scss';
 
+ // Bootstrap SASS
 @import 'app/bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
