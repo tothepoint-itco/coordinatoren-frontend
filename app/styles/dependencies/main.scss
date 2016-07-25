@@ -10,3 +10,7 @@
 
  // Bootstrap SASS
 @import 'app/bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+
+ // Lumen Bootstrap Theme
+@import './theme/_variables.scss';
+@import './theme/_theme.scss';
